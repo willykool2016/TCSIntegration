@@ -858,35 +858,35 @@ Module Universals
         End Try
     End Sub
 
-    Public Function Load_DGV_Excel(filePath As String, ByRef DGV As DataGridView, strSQL As String) As Boolean
-        Dim dt As New DataTable
-        'Dim cs As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & filePath & ";Extended Properties=""Excel 8.0;HDR=Yes;IMEX=1"";"
-        Dim cs As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & filePath & ";Extended Properties=""Excel 12.0 Xml;HDR=YES"";"
+    'Public Function Load_DGV_Excel(filePath As String, ByRef DGV As DataGridView, strSQL As String) As Boolean
+    '    Dim dt As New DataTable
+    '    'Dim cs As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & filePath & ";Extended Properties=""Excel 8.0;HDR=Yes;IMEX=1"";"
+    '    Dim cs As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & filePath & ";Extended Properties=""Excel 12.0 Xml;HDR=YES"";"
 
-        DGV.DataSource = Nothing
-        DGV.Rows.Clear()
-        DGV.Columns.Clear()
+    '    DGV.DataSource = Nothing
+    '    DGV.Rows.Clear()
+    '    DGV.Columns.Clear()
 
-        Try
-            'Using cn As New System.Data.OleDb.OleDbConnection(cs)
-            Using cn As New MySql.Data.MySqlClient.MySqlConnection(cs)
-                Using cmd As New MySql.Data.MySqlClient.MySqlDataAdapter(strSQL, cn)
-                    cn.Open()
-                    cmd.Fill(dt)
-                End Using
-                cn.Close()
-            End Using
+    '    Try
+    '        'Using cn As New System.Data.OleDb.OleDbConnection(cs)
+    '        Using cn As New MySql.Data.MySqlClient.MySqlConnection(cs)
+    '            Using cmd As New MySql.Data.MySqlClient.MySqlDataAdapter(strSQL, cn)
+    '                cn.Open()
+    '                cmd.Fill(dt)
+    '            End Using
+    '            cn.Close()
+    '        End Using
 
-            DGV.DataSource = dt
-            DGV.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
-            DGV.Refresh()
+    '        DGV.DataSource = dt
+    '        DGV.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells)
+    '        DGV.Refresh()
 
-            Return True
-        Catch ex As Exception
-            Call Error_Messager("Globals", System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error populating the DGV data table for " & filePath & ex.Message, MsgBoxStyle.Critical, "Globals")
-            Return False
-        End Try
-    End Function
+    '        Return True
+    '    Catch ex As Exception
+    '        Call Error_Messager("Globals", System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error populating the DGV data table for " & filePath & ex.Message, MsgBoxStyle.Critical, "Globals")
+    '        Return False
+    '    End Try
+    'End Function
 
     Public Sub Load_DGV_Array(strSQL As String, ByRef DGV As DataGridView, table As String)
         Dim i As Integer
