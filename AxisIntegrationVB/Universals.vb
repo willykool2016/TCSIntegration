@@ -869,10 +869,8 @@ Module Universals
 
         Try
             'Using cn As New System.Data.OleDb.OleDbConnection(cs)
-            Using cn As New Microsoft.Data.SqlClient.SqlConnection(cs)
-
-
-                Using cmd As New System.Data.OleDb.OleDbDataAdapter(strSQL, cn)
+            Using cn As New MySql.Data.MySqlClient.MySqlConnection(cs)
+                Using cmd As New MySql.Data.MySqlClient.MySqlDataAdapter(strSQL, cn)
                     cn.Open()
                     cmd.Fill(dt)
                 End Using
