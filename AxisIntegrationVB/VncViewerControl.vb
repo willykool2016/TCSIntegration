@@ -9,6 +9,7 @@ Public Class VncViewerControl
     Inherits UserControl
 
     Private _client As VncClient
+    Private HiddenCursor As Cursor
 
     Public Property Client As VncClient
         Get
@@ -36,9 +37,156 @@ Public Class VncViewerControl
         DoubleBuffered = True
         ResizeRedraw = True
         TabStop = True
+        HiddenCursor = CreateInvisibleCursor()
 
     End Sub
 
+#Region "Mouse Support"
+    Private Function GetMouseButtonMask() As Integer
+
+        Dim buttons As Integer = 0
+
+        If (Control.MouseButtons And MouseButtons.Left) <> 0 Then
+            buttons = buttons Or 1
+        End If
+
+        If (Control.MouseButtons And MouseButtons.Middle) <> 0 Then
+            buttons = buttons Or 2
+        End If
+
+        If (Control.MouseButtons And MouseButtons.Right) <> 0 Then
+            buttons = buttons Or 4
+        End If
+
+        Return buttons
+
+    End Function
+
+    Protected Overrides Sub OnMouseMove(e As MouseEventArgs)
+
+        MyBase.OnMouseMove(e)
+
+        If Client Is Nothing Then Return
+
+        Dim remotePoint = TranslateMousePoint(e.Location)
+
+        Client.SendPointerEvent(
+        remotePoint.X,
+        remotePoint.Y,
+        GetMouseButtonMask())
+
+        Me.Cursor = HiddenCursor
+
+    End Sub
+
+    Protected Overrides Sub OnMouseDown(e As MouseEventArgs)
+
+        MyBase.OnMouseDown(e)
+
+        Me.Focus()
+
+        If Client Is Nothing Then Return
+
+        Dim remotePoint = TranslateMousePoint(e.Location)
+
+        Client.SendPointerEvent(
+        remotePoint.X,
+        remotePoint.Y,
+        GetMouseButtonMask())
+
+    End Sub
+
+
+    Protected Overrides Sub OnMouseUp(e As MouseEventArgs)
+
+        MyBase.OnMouseUp(e)
+
+        If Client Is Nothing Then Return
+
+        Dim remotePoint = TranslateMousePoint(e.Location)
+
+        Client.SendPointerEvent(
+        remotePoint.X,
+        remotePoint.Y,
+        GetMouseButtonMask())
+
+    End Sub
+
+    Private Function TranslateMousePoint(p As Point) As Point
+
+        If Client Is Nothing OrElse Client.Framebuffer Is Nothing Then
+            Return p
+        End If
+
+        Dim fb = Client.Framebuffer
+
+        Dim scale As Single =
+        Math.Min(ClientSize.Width / fb.Width,
+                 ClientSize.Height / fb.Height)
+
+        Dim drawWidth As Integer = CInt(fb.Width * scale)
+        Dim drawHeight As Integer = CInt(fb.Height * scale)
+
+        Dim offsetX As Integer =
+        (ClientSize.Width - drawWidth) \ 2
+
+        Dim offsetY As Integer =
+        (ClientSize.Height - drawHeight) \ 2
+
+
+        Dim remoteX As Integer =
+        CInt((p.X - offsetX) / scale)
+
+        Dim remoteY As Integer =
+        CInt((p.Y - offsetY) / scale)
+
+
+        Return New Point(remoteX, remoteY)
+
+    End Function
+
+    Protected Overrides Sub OnMouseEnter(e As EventArgs)
+        MyBase.OnMouseEnter(e)
+
+        Me.Cursor = HiddenCursor
+    End Sub
+
+
+    Protected Overrides Sub OnMouseLeave(e As EventArgs)
+        MyBase.OnMouseLeave(e)
+
+        Me.Cursor = Cursors.Default
+    End Sub
+#End Region
+
+#Region "Keyboard Support"
+    Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
+
+        MyBase.OnKeyDown(e)
+
+        If Client Is Nothing Then Return
+
+        Client.SendKeyEvent(
+        True,
+        e.KeyValue)
+
+    End Sub
+
+
+    Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
+
+        MyBase.OnKeyUp(e)
+
+        If Client Is Nothing Then Return
+
+        Client.SendKeyEvent(
+        False,
+        e.KeyValue)
+
+    End Sub
+#End Region
+
+#Region "Rendering"
     Private Sub FramebufferChanged(sender As Object, e As EventArgs)
 
         If Me.IsHandleCreated Then
@@ -175,5 +323,17 @@ Public Class VncViewerControl
         Return bmp
 
     End Function
+#End Region
 
+    Private Function CreateInvisibleCursor() As Cursor
+
+        Dim bmp As New Bitmap(32, 32)
+
+        Using g As Graphics = Graphics.FromImage(bmp)
+            g.Clear(Color.Transparent)
+        End Using
+
+        Return New Cursor(bmp.GetHicon())
+
+    End Function
 End Class
