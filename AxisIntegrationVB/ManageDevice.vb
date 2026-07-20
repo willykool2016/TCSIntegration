@@ -140,7 +140,7 @@ Public Class ManageDevice
         Try
             If dgvDevice.Columns(e.ColumnIndex).Name = "Zero" Then
                 If dgvDevice.Rows(e.RowIndex).Cells("printer").Value = "True" Then
-                    If MessageBox.Show("Are you sure you want to zero the printer?  This will set the printer count value to zero.", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then Exit Sub
+                    If MessageBox.Show("Are you sure you want to zero the printer?  This will set the printer count value to zero.", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = System.Windows.Forms.DialogResult.No Then Exit Sub
                     Call Universals.Update_Table_Row("list_device", dgvDevice.Rows(e.RowIndex).Cells("id").Value, "count", "0", "length", "0")
                     Call tsbRefresh.PerformClick()
                 End If
@@ -190,7 +190,7 @@ Public Class ManageDevice
             Else
                 If IsNumeric(tsbPrinted.Text) Then
                     If tsbPrinted.Text <> 0 Then
-                        If MessageBox.Show("Are you sure you want to add " & tsbPrinted.Text & " inches to paper_usage?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then Exit Sub
+                        If MessageBox.Show("Are you sure you want to add " & tsbPrinted.Text & " inches to paper_usage?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = System.Windows.Forms.DialogResult.No Then Exit Sub
                         Call Universals.Update_Table_Row("list_device", dgvDevice.SelectedRows(0).Cells("id").Value, "count", CDec(dgvDevice.SelectedRows(0).Cells("count").Value) + 1, "length", CDec(dgvDevice.SelectedRows(0).Cells("length").Value) + CDec(tsbPrinted.Text))
                         refresh = False
                         Call tsbRefresh.PerformClick()
