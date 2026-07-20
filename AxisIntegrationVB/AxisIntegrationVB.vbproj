@@ -1,0 +1,266 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>AxisIntegrationVB.My.MyApplication</StartupObject>
+    <MyType>WindowsForms</MyType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <AssemblyTitle>VNCIntegrationTCSVisualBasic</AssemblyTitle>
+    <Product>VNCIntegrationTCSVisualBasic</Product>
+    <Copyright>Copyright ©  2026</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>AxisIntegrationVB.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineDebug>false</DefineDebug>
+    <DocumentationFile>AxisIntegrationVB.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple" />
+    <PackageReference Include="BouncyCastle" Version="1.8.9" />
+    <PackageReference Include="Concentus" Version="2.2.2" />
+    <PackageReference Include="DnsClient" Version="1.8.0" />
+    <PackageReference Include="FFmpeg.AutoGen" Version="8.1.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.35.1" />
+    <PackageReference Include="IPNetwork2" Version="4.3.0" />
+    <PackageReference Include="LibVLCSharp.WinForms" Version="3.10.0" />
+    <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.10" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
+    <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+    <PackageReference Include="MySql.Data" Version="9.7.0" />
+    <PackageReference Include="MySqlConnector" Version="2.6.1" />
+    <PackageReference Include="NAudio" Version="2.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="PDFsharp" Version="6.2.4" />
+    <PackageReference Include="Quamotion.RemoteViewing.Windows.Forms" Version="1.1.211" />
+    <PackageReference Include="Quamotion.TurboJpegWrapper" Version="2.0.32" />
+    <PackageReference Include="SharpCompress" Version="0.50.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.10" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.10" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.IO.Pipelines" Version="10.0.10" />
+    <PackageReference Include="System.Management" Version="10.0.10" />
+    <PackageReference Include="System.Net.Security" Version="4.3.2" />
+    <PackageReference Include="System.Net.WebSockets.Client" Version="4.3.2" />
+    <PackageReference Include="System.Resources.Extensions" Version="10.0.10" />
+    <PackageReference Include="System.Runtime" Version="4.3.1" />
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    <PackageReference Include="System.Security.AccessControl" Version="6.0.1" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.10" />
+    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.10" />
+    <PackageReference Include="System.ValueTuple" Version="4.6.2" />
+    <PackageReference Include="ThoughtWorks.QRCode" Version="1.1.0" />
+    <PackageReference Include="Validation" Version="2.6.68" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.23.1" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.8.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Update="ManageDevice.Designer.vb">
+      <DependentUpon>ManageDevice.vb</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Update="ScalableVncControl.vb">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="obj\Debug\AxisIntegrationVB.CameraView.resources" />
+    <EmbeddedResource Include="obj\Debug\AxisIntegrationVB.Form1.resources" />
+    <EmbeddedResource Include="obj\Debug\AxisIntegrationVB.ManageDevice.resources" />
+    <EmbeddedResource Include="obj\Debug\AxisIntegrationVB.Resources.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\AxisIntegrationVB.exe.config" />
+    <None Include="bin\Debug\VNCIntegrationTCSVisualBasic.exe.config" />
+    <None Update="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="obj\Debug\AxisIntegrationVB.exe.config" />
+    <None Include="obj\Debug\AxisIntegrationVB.vbproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\AxisIntegrationVB.vbproj.GenerateResource.cache" />
+    <None Include="obj\Debug\AxisIntegrationVB.vbproj.ResolveComReference.cache" />
+    <None Include="obj\Debug\AxisIntegrationVB.vbprojAssemblyReference.cache" />
+    <None Include="obj\Debug\build.force" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxAXISMEDIACONTROLLib">
+      <Guid>{A48F4EE0-B408-4376-B4C9-BC9CF6E16EBC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AXISMEDIACONTROLLib">
+      <Guid>{A48F4EE0-B408-4376-B4C9-BC9CF6E16EBC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\AxInterop.AXISMEDIACONTROLLib.dll" />
+    <Content Include="bin\Debug\AxisIntegrationVB.exe" />
+    <Content Include="bin\Debug\AxisIntegrationVB.pdb" />
+    <Content Include="bin\Debug\AxisIntegrationVB.xml" />
+    <Content Include="bin\Debug\BouncyCastle.Crypto.dll" />
+    <Content Include="bin\Debug\BouncyCastle.Cryptography.dll" />
+    <Content Include="bin\Debug\BouncyCastle.Cryptography.xml" />
+    <Content Include="bin\Debug\Google.Protobuf.dll" />
+    <Content Include="bin\Debug\Google.Protobuf.pdb" />
+    <Content Include="bin\Debug\Google.Protobuf.xml" />
+    <Content Include="bin\Debug\Interop.AXISMEDIACONTROLLib.dll" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.dll" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.Streams.dll" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.Streams.xml" />
+    <Content Include="bin\Debug\K4os.Compression.LZ4.xml" />
+    <Content Include="bin\Debug\K4os.Hash.xxHash.dll" />
+    <Content Include="bin\Debug\K4os.Hash.xxHash.xml" />
+    <Content Include="bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Content Include="bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml" />
+    <Content Include="bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <Content Include="bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <Content Include="bin\Debug\Microsoft.Extensions.FileProviders.Abstractions.dll" />
+    <Content Include="bin\Debug\Microsoft.Extensions.FileProviders.Abstractions.xml" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Hosting.Abstractions.dll" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Hosting.Abstractions.xml" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Primitives.dll" />
+    <Content Include="bin\Debug\Microsoft.Extensions.Primitives.xml" />
+    <Content Include="bin\Debug\MySql.Data.dll" />
+    <Content Include="bin\Debug\MySql.Data.xml" />
+    <Content Include="bin\Debug\MySqlConnector.dll" />
+    <Content Include="bin\Debug\MySqlConnector.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\PdfSharp.BarCodes.dll" />
+    <Content Include="bin\Debug\PdfSharp.BarCodes.pdb" />
+    <Content Include="bin\Debug\PdfSharp.BarCodes.xml" />
+    <Content Include="bin\Debug\PdfSharp.Charting.dll" />
+    <Content Include="bin\Debug\PdfSharp.Charting.pdb" />
+    <Content Include="bin\Debug\PdfSharp.Charting.xml" />
+    <Content Include="bin\Debug\PdfSharp.Cryptography.dll" />
+    <Content Include="bin\Debug\PdfSharp.Cryptography.pdb" />
+    <Content Include="bin\Debug\PdfSharp.Cryptography.xml" />
+    <Content Include="bin\Debug\PdfSharp.dll" />
+    <Content Include="bin\Debug\PdfSharp.pdb" />
+    <Content Include="bin\Debug\PdfSharp.Quality.dll" />
+    <Content Include="bin\Debug\PdfSharp.Quality.pdb" />
+    <Content Include="bin\Debug\PdfSharp.Quality.xml" />
+    <Content Include="bin\Debug\PdfSharp.Shared.dll" />
+    <Content Include="bin\Debug\PdfSharp.Shared.pdb" />
+    <Content Include="bin\Debug\PdfSharp.Shared.xml" />
+    <Content Include="bin\Debug\PdfSharp.Snippets.dll" />
+    <Content Include="bin\Debug\PdfSharp.Snippets.pdb" />
+    <Content Include="bin\Debug\PdfSharp.System.dll" />
+    <Content Include="bin\Debug\PdfSharp.System.pdb" />
+    <Content Include="bin\Debug\PdfSharp.System.xml" />
+    <Content Include="bin\Debug\PdfSharp.WPFonts.dll" />
+    <Content Include="bin\Debug\PdfSharp.WPFonts.pdb" />
+    <Content Include="bin\Debug\PdfSharp.WPFonts.xml" />
+    <Content Include="bin\Debug\PdfSharp.xml" />
+    <Content Include="bin\Debug\Quamotion.TurboJpegWrapper.dll" />
+    <Content Include="bin\Debug\RemoteViewing.dll" />
+    <Content Include="bin\Debug\RemoteViewing.pdb" />
+    <Content Include="bin\Debug\RemoteViewing.Windows.Forms.dll" />
+    <Content Include="bin\Debug\RemoteViewing.Windows.Forms.pdb" />
+    <Content Include="bin\Debug\RemoteViewing.Windows.Forms.xml" />
+    <Content Include="bin\Debug\RemoteViewing.xml" />
+    <Content Include="bin\Debug\SharpCompress.dll" />
+    <Content Include="bin\Debug\System.Buffers.dll" />
+    <Content Include="bin\Debug\System.Buffers.xml" />
+    <Content Include="bin\Debug\System.Configuration.ConfigurationManager.dll" />
+    <Content Include="bin\Debug\System.Configuration.ConfigurationManager.xml" />
+    <Content Include="bin\Debug\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\Debug\System.Diagnostics.DiagnosticSource.xml" />
+    <Content Include="bin\Debug\System.IO.Pipelines.dll" />
+    <Content Include="bin\Debug\System.IO.Pipelines.xml" />
+    <Content Include="bin\Debug\System.Memory.dll" />
+    <Content Include="bin\Debug\System.Memory.xml" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.dll" />
+    <Content Include="bin\Debug\System.Numerics.Vectors.xml" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\Debug\System.Runtime.CompilerServices.Unsafe.xml" />
+    <Content Include="bin\Debug\System.Security.Cryptography.Pkcs.dll" />
+    <Content Include="bin\Debug\System.Security.Cryptography.Pkcs.xml" />
+    <Content Include="bin\Debug\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="bin\Debug\System.Threading.Tasks.Extensions.xml" />
+    <Content Include="bin\Debug\System.ValueTuple.dll" />
+    <Content Include="bin\Debug\System.ValueTuple.xml" />
+    <Content Include="bin\Debug\ThoughtWorks.QRCode.dll" />
+    <Content Include="bin\Debug\Validation.dll" />
+    <Content Include="bin\Debug\Validation.xml" />
+    <Content Include="bin\Debug\VNCIntegrationTCSVisualBasic.exe" />
+    <Content Include="bin\Debug\VNCIntegrationTCSVisualBasic.pdb" />
+    <Content Include="bin\Debug\VNCIntegrationTCSVisualBasic.xml" />
+    <Content Include="bin\Debug\ZstdSharp.dll" />
+    <Content Include="obj\Debug\AxInterop.AXISMEDIACONTROLLib.dll" />
+    <Content Include="obj\Debug\AxisIntegrationVB.exe" />
+    <Content Include="obj\Debug\AxisIntegrationVB.pdb" />
+    <Content Include="obj\Debug\AxisIntegrationVB.vbproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\AxisIntegrationVB.xml" />
+    <Content Include="obj\Debug\Interop.AXISMEDIACONTROLLib.dll" />
+    <Content Include="obj\Debug\TempPE\My Project.Resources.Designer.vb.dll" />
+    <Content Include="Resources\Hopper_Empty.png" />
+    <Content Include="Resources\Hopper_Full.png" />
+    <Content Include="Resources\Login.png" />
+    <Content Include="Resources\Logout.png" />
+    <Content Include="Resources\Other_Empty.png" />
+    <Content Include="Resources\Other_Full.png" />
+    <Content Include="Resources\Tanker_Empty.png" />
+    <Content Include="Resources\Tanker_Full.png" />
+    <Content Include="Resources\TMT_Jordan-01.png" />
+    <Content Include="Resources\Trans Logo with Address.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+</Project>
