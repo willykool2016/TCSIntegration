@@ -11,6 +11,10 @@ Public Class VncViewerControl
     Private _client As VncClient
     Private HiddenCursor As Cursor
 
+    Private _localMousePosition As Point
+    Private _drawLocalCursor As Boolean = False
+    Private _localCursor As Cursor = Cursors.Default
+
     Public Property Client As VncClient
         Get
             Return _client
@@ -66,6 +70,11 @@ Public Class VncViewerControl
 
         MyBase.OnMouseMove(e)
 
+        _localMousePosition = e.Location
+        _localCursor = Cursors.Default
+
+        Invalidate()
+
         If Client Is Nothing Then Return
 
         Dim remotePoint = TranslateMousePoint(e.Location)
@@ -74,8 +83,6 @@ Public Class VncViewerControl
         remotePoint.X,
         remotePoint.Y,
         GetMouseButtonMask())
-
-        Me.Cursor = HiddenCursor
 
     End Sub
 
@@ -146,9 +153,11 @@ Public Class VncViewerControl
     End Function
 
     Protected Overrides Sub OnMouseEnter(e As EventArgs)
+
         MyBase.OnMouseEnter(e)
 
         Me.Cursor = HiddenCursor
+
     End Sub
 
 
@@ -225,6 +234,18 @@ Public Class VncViewerControl
             New Rectangle(x, y, w, h))
 
         End Using
+
+        If _localCursor IsNot Nothing Then
+
+            _localCursor.Draw(
+        e.Graphics,
+        New Rectangle(
+            _localMousePosition.X,
+            _localMousePosition.Y,
+            _localCursor.Size.Width,
+            _localCursor.Size.Height))
+
+        End If
 
     End Sub
 
