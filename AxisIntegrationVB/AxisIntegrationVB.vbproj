@@ -27,7 +27,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple" />
-    <PackageReference Include="BouncyCastle" Version="1.8.9" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
     <PackageReference Include="Concentus" Version="2.2.2" />
     <PackageReference Include="DnsClient" Version="1.8.0" />
     <PackageReference Include="FFmpeg.AutoGen" Version="8.1.0" />
@@ -48,6 +48,7 @@
     <PackageReference Include="NAudio" Version="2.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="PDFsharp" Version="6.2.4" />
+    <PackageReference Include="Quamotion.RemoteViewing" Version="1.1.211" />
     <PackageReference Include="Quamotion.RemoteViewing.Windows.Forms" Version="1.1.211" />
     <PackageReference Include="Quamotion.TurboJpegWrapper" Version="2.0.32" />
     <PackageReference Include="SharpCompress" Version="0.50.0" />
@@ -87,6 +88,7 @@
     <Compile Update="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Update="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -97,9 +99,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Update="ScalableVncControl.vb">
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
