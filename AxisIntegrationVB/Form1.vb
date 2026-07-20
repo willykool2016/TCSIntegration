@@ -10,7 +10,6 @@ Imports RemoteViewing.Vnc
 Imports RemoteViewing.Windows.Forms
 Imports System.Drawing.Imaging
 Imports System.Drawing.Drawing2D
-Imports AxAXISMEDIACONTROLLib
 Partial Public Class Form1
     Inherits System.Windows.Forms.Form
 
@@ -33,7 +32,7 @@ Partial Public Class Form1
     Private ReadOnly Clients As New List(Of VncClient)
     Private Structure VncSession
         Public Client As VncClient
-        Public Control As VncControl
+        Public Control As VncViewerControl
     End Structure
     Private Sessions As New List(Of VncSession)
 
@@ -70,7 +69,7 @@ Partial Public Class Form1
         ' Run connect asynchronously
         Try
             Dim client As New VncClient()
-            Dim VncControl As VncControl = Globals.CreateCtrl(Of VncControl)(TotalPanel)
+            Dim VncControl As VncViewerControl = Globals.CreateCtrl(Of VncViewerControl)(TotalPanel)
             Sessions.Add(New VncSession With {
                 .Client = client,
                 .Control = VncControl
