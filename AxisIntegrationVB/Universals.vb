@@ -868,7 +868,10 @@ Module Universals
         DGV.Columns.Clear()
 
         Try
-            Using cn As New System.Data.OleDb.OleDbConnection(cs)
+            'Using cn As New System.Data.OleDb.OleDbConnection(cs)
+            Using cn As New Microsoft.Data.SqlClient.SqlConnection(cs)
+
+
                 Using cmd As New System.Data.OleDb.OleDbDataAdapter(strSQL, cn)
                     cn.Open()
                     cmd.Fill(dt)
