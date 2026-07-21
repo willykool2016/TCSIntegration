@@ -80,8 +80,8 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Update="VncForm.Designer.vb">
+      <DependentUpon>VncForm.vb</DependentUpon>
     </Compile>
     <Compile Update="ManageDevice.Designer.vb">
       <DependentUpon>ManageDevice.vb</DependentUpon>

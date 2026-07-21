@@ -10,7 +10,7 @@ Imports RemoteViewing.Vnc
 Imports RemoteViewing.Windows.Forms
 Imports System.Drawing.Imaging
 Imports System.Drawing.Drawing2D
-Partial Public Class Form1
+Partial Public Class VncForm
     Inherits System.Windows.Forms.Form
 
 #Region "Initial Var and Constructors"
