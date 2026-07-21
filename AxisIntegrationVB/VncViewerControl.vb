@@ -1,9 +1,10 @@
-﻿Imports System.Drawing
+﻿Imports System.ComponentModel
+Imports System.Drawing
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
+Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 Imports RemoteViewing.Vnc
-Imports System.Runtime.InteropServices
 
 Public Class VncViewerControl
     Inherits UserControl
@@ -15,6 +16,8 @@ Public Class VncViewerControl
     Private _drawLocalCursor As Boolean = False
     Private _localCursor As Cursor = Cursors.Default
 
+    <Browsable(False)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
     Public Property Client As VncClient
         Get
             Return _client

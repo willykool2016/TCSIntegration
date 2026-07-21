@@ -1,10 +1,11 @@
 ﻿Public Class CallNotification
-    Private sipService = New SIPService
+    Public Event AnswerRequested()
+    Public Event HangupRequested()
     Private Sub AnswerButton_Click(sender As Object, e As EventArgs) Handles AnswerButton.Click
-        sipService.AnswerCall()
+        RaiseEvent AnswerRequested()
     End Sub
 
     Private Sub DeclineButton_Click(sender As Object, e As EventArgs) Handles DeclineButton.Click
-        sipService.HangUp()
+        RaiseEvent HangupRequested()
     End Sub
 End Class

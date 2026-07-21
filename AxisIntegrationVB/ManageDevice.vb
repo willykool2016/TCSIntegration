@@ -4,12 +4,13 @@ Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI
 
 Public Class ManageDevice
-    Public Property ParentFormRef As VncForm
+    'Public Property ParentFormRef As VncForm
     Dim blnDGVUpdate As Boolean
     Dim WithEvents tkbTrack As New TrackBar
     Dim ToolStripProgressBar1 As New ToolStripProgressBar
     Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
     Dim intercomView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
+    Dim notification As New CallNotification()
 
 #Region "Form Routines"
 
@@ -363,6 +364,25 @@ Public Class ManageDevice
 
     Private Sub ManageDevice_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
         SaveOrder()
+    End Sub
+#End Region
+#Region "Pipeline Requests (Will & Glade)"
+    Private Sub ShowCallNotification()
+
+        Dim notification As New CallNotification()
+
+        AddHandler notification.AnswerRequested,
+        Sub()
+            MessageBox.Show("Answer requested")
+        End Sub
+
+        AddHandler notification.HangupRequested,
+        Sub()
+            MessageBox.Show("Hangup requested")
+        End Sub
+
+        notification.Show()
+
     End Sub
 #End Region
 End Class
