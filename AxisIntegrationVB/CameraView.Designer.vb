@@ -22,16 +22,45 @@ Partial Class CameraView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.SuspendLayout()
-        '
-        'CameraView
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Name = "CameraView"
-        Me.Text = "Form1"
-        Me.ResumeLayout(False)
+        VideoView1 = New LibVLCSharp.WinForms.VideoView()
+        btnPlay = New Button()
+        CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' VideoView1
+        ' 
+        VideoView1.BackColor = Color.Black
+        VideoView1.Location = New Point(80, 28)
+        VideoView1.MediaPlayer = Nothing
+        VideoView1.Name = "VideoView1"
+        VideoView1.Size = New Size(887, 489)
+        VideoView1.TabIndex = 0
+        VideoView1.Text = "VideoView1"
+        ' 
+        ' btnPlay
+        ' 
+        btnPlay.Location = New Point(350, 540)
+        btnPlay.Name = "btnPlay"
+        btnPlay.Size = New Size(317, 102)
+        btnPlay.TabIndex = 1
+        btnPlay.Text = "Play"
+        btnPlay.UseVisualStyleBackColor = True
+        ' 
+        ' CameraView
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(1067, 692)
+        Controls.Add(btnPlay)
+        Controls.Add(VideoView1)
+        Margin = New Padding(4, 5, 4, 5)
+        Name = "CameraView"
+        Text = "Form1"
+        CType(VideoView1, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
 
     End Sub
+
+    Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
+    Friend WithEvents btnPlay As Button
 End Class

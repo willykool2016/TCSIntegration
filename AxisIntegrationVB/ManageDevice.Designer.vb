@@ -22,215 +22,221 @@ Partial Class ManageDevice
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        components = New ComponentModel.Container()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ManageDevice))
-        Me.dgvDevice = New System.Windows.Forms.DataGridView()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsbRefresh = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsbPing = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.VncAllButton = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
-        Me.tsbPrinted = New System.Windows.Forms.ToolStripTextBox()
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
-        Me.IntercomAllButton = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        CType(Me.dgvDevice, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'dgvDevice
-        '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDevice.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvDevice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDevice.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvDevice.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvDevice.Location = New System.Drawing.Point(3, 3)
-        Me.dgvDevice.Name = "dgvDevice"
-        Me.dgvDevice.Size = New System.Drawing.Size(1206, 450)
-        Me.dgvDevice.TabIndex = 0
-        '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 1000
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.dgvDevice, 0, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 39)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 456.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1212, 456)
-        Me.TableLayoutPanel1.TabIndex = 1
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbRefresh, Me.ToolStripSeparator1, Me.tsbPing, Me.ToolStripSeparator3, Me.VncAllButton, Me.ToolStripSeparator4, Me.IntercomAllButton, Me.ToolStripSeparator5, Me.ToolStripLabel1, Me.tsbPrinted, Me.tsbSave, Me.ToolStripSeparator2})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1212, 39)
-        Me.ToolStrip1.TabIndex = 2
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbRefresh
-        '
-        Me.tsbRefresh.AutoSize = False
-        Me.tsbRefresh.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbRefresh.Name = "tsbRefresh"
-        Me.tsbRefresh.Size = New System.Drawing.Size(100, 36)
-        Me.tsbRefresh.Text = "Refresh"
-        Me.tsbRefresh.ToolTipText = "Reload the device information"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 39)
-        '
-        'tsbPing
-        '
-        Me.tsbPing.AutoSize = False
-        Me.tsbPing.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbPing.Name = "tsbPing"
-        Me.tsbPing.Size = New System.Drawing.Size(100, 36)
-        Me.tsbPing.Text = "Ping"
-        Me.tsbPing.ToolTipText = "Get device status"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 39)
-        '
-        'VncAllButton
-        '
-        Me.VncAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.VncAllButton.Image = CType(resources.GetObject("VncAllButton.Image"), System.Drawing.Image)
-        Me.VncAllButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.VncAllButton.Name = "VncAllButton"
-        Me.VncAllButton.Size = New System.Drawing.Size(52, 36)
-        Me.VncAllButton.Text = "VNC All"
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 39)
-        '
-        'ToolStripLabel1
-        '
-        Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(114, 36)
-        Me.ToolStripLabel1.Text = "Add length (inches):"
-        '
-        'tsbPrinted
-        '
-        Me.tsbPrinted.Name = "tsbPrinted"
-        Me.tsbPrinted.Size = New System.Drawing.Size(100, 39)
-        '
-        'tsbSave
-        '
-        Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbSave.Name = "tsbSave"
-        Me.tsbSave.Size = New System.Drawing.Size(23, 36)
-        Me.tsbSave.ToolTipText = "Save changes"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 39)
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 495)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1212, 22)
-        Me.StatusStrip1.TabIndex = 3
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripStatusLabel2
-        '
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(1077, 17)
-        Me.ToolStripStatusLabel2.Spring = True
-        '
-        'ToolStripStatusLabel1
-        '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(120, 17)
-        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
-        '
-        'Timer2
-        '
-        Me.Timer2.Enabled = True
-        Me.Timer2.Interval = 1000
-        '
-        'IntercomAllButton
-        '
-        Me.IntercomAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.IntercomAllButton.Image = CType(resources.GetObject("IntercomAllButton.Image"), System.Drawing.Image)
-        Me.IntercomAllButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.IntercomAllButton.Name = "IntercomAllButton"
-        Me.IntercomAllButton.Size = New System.Drawing.Size(76, 36)
-        Me.IntercomAllButton.Text = "Intercom All"
-        '
-        'ToolStripSeparator5
-        '
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(6, 39)
-        '
-        'ManageDevice
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1212, 517)
-        Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Name = "ManageDevice"
-        Me.Text = "Kiosk Management"
-        CType(Me.dgvDevice, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        dgvDevice = New DataGridView()
+        Timer1 = New Timer(components)
+        TableLayoutPanel1 = New TableLayoutPanel()
+        ToolStrip1 = New ToolStrip()
+        tsbRefresh = New ToolStripButton()
+        ToolStripSeparator1 = New ToolStripSeparator()
+        tsbPing = New ToolStripButton()
+        ToolStripSeparator3 = New ToolStripSeparator()
+        VncAllButton = New ToolStripButton()
+        ToolStripSeparator4 = New ToolStripSeparator()
+        IntercomAllButton = New ToolStripButton()
+        ToolStripSeparator5 = New ToolStripSeparator()
+        ToolStripLabel1 = New ToolStripLabel()
+        tsbPrinted = New ToolStripTextBox()
+        tsbSave = New ToolStripButton()
+        ToolStripSeparator2 = New ToolStripSeparator()
+        StatusStrip1 = New StatusStrip()
+        ToolStripStatusLabel2 = New ToolStripStatusLabel()
+        ToolStripStatusLabel1 = New ToolStripStatusLabel()
+        Timer2 = New Timer(components)
+        CType(dgvDevice, ComponentModel.ISupportInitialize).BeginInit()
+        TableLayoutPanel1.SuspendLayout()
+        ToolStrip1.SuspendLayout()
+        StatusStrip1.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' dgvDevice
+        ' 
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        dgvDevice.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        dgvDevice.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = SystemColors.Window
+        DataGridViewCellStyle2.Font = New Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle2.ForeColor = SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.False
+        dgvDevice.DefaultCellStyle = DataGridViewCellStyle2
+        dgvDevice.Dock = DockStyle.Fill
+        dgvDevice.Location = New Point(4, 5)
+        dgvDevice.Margin = New Padding(4, 5, 4, 5)
+        dgvDevice.Name = "dgvDevice"
+        dgvDevice.RowHeadersWidth = 51
+        dgvDevice.Size = New Size(1608, 720)
+        dgvDevice.TabIndex = 0
+        ' 
+        ' Timer1
+        ' 
+        Timer1.Enabled = True
+        Timer1.Interval = 1000
+        ' 
+        ' TableLayoutPanel1
+        ' 
+        TableLayoutPanel1.ColumnCount = 1
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 100F))
+        TableLayoutPanel1.Controls.Add(dgvDevice, 0, 0)
+        TableLayoutPanel1.Dock = DockStyle.Fill
+        TableLayoutPanel1.Location = New Point(0, 39)
+        TableLayoutPanel1.Margin = New Padding(4, 5, 4, 5)
+        TableLayoutPanel1.Name = "TableLayoutPanel1"
+        TableLayoutPanel1.RowCount = 1
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Absolute, 702F))
+        TableLayoutPanel1.Size = New Size(1616, 730)
+        TableLayoutPanel1.TabIndex = 1
+        ' 
+        ' ToolStrip1
+        ' 
+        ToolStrip1.ImageScalingSize = New Size(32, 32)
+        ToolStrip1.Items.AddRange(New ToolStripItem() {tsbRefresh, ToolStripSeparator1, tsbPing, ToolStripSeparator3, VncAllButton, ToolStripSeparator4, IntercomAllButton, ToolStripSeparator5, ToolStripLabel1, tsbPrinted, tsbSave, ToolStripSeparator2})
+        ToolStrip1.Location = New Point(0, 0)
+        ToolStrip1.Name = "ToolStrip1"
+        ToolStrip1.Size = New Size(1616, 39)
+        ToolStrip1.TabIndex = 2
+        ToolStrip1.Text = "ToolStrip1"
+        ' 
+        ' tsbRefresh
+        ' 
+        tsbRefresh.AutoSize = False
+        tsbRefresh.ImageTransparentColor = Color.Magenta
+        tsbRefresh.Name = "tsbRefresh"
+        tsbRefresh.Size = New Size(100, 36)
+        tsbRefresh.Text = "Refresh"
+        tsbRefresh.ToolTipText = "Reload the device information"
+        ' 
+        ' ToolStripSeparator1
+        ' 
+        ToolStripSeparator1.Name = "ToolStripSeparator1"
+        ToolStripSeparator1.Size = New Size(6, 39)
+        ' 
+        ' tsbPing
+        ' 
+        tsbPing.AutoSize = False
+        tsbPing.ImageTransparentColor = Color.Magenta
+        tsbPing.Name = "tsbPing"
+        tsbPing.Size = New Size(100, 36)
+        tsbPing.Text = "Ping"
+        tsbPing.ToolTipText = "Get device status"
+        ' 
+        ' ToolStripSeparator3
+        ' 
+        ToolStripSeparator3.Name = "ToolStripSeparator3"
+        ToolStripSeparator3.Size = New Size(6, 39)
+        ' 
+        ' VncAllButton
+        ' 
+        VncAllButton.DisplayStyle = ToolStripItemDisplayStyle.Text
+        VncAllButton.Image = CType(resources.GetObject("VncAllButton.Image"), Image)
+        VncAllButton.ImageTransparentColor = Color.Magenta
+        VncAllButton.Name = "VncAllButton"
+        VncAllButton.Size = New Size(64, 36)
+        VncAllButton.Text = "VNC All"
+        ' 
+        ' ToolStripSeparator4
+        ' 
+        ToolStripSeparator4.Name = "ToolStripSeparator4"
+        ToolStripSeparator4.Size = New Size(6, 39)
+        ' 
+        ' IntercomAllButton
+        ' 
+        IntercomAllButton.DisplayStyle = ToolStripItemDisplayStyle.Text
+        IntercomAllButton.Image = CType(resources.GetObject("IntercomAllButton.Image"), Image)
+        IntercomAllButton.ImageTransparentColor = Color.Magenta
+        IntercomAllButton.Name = "IntercomAllButton"
+        IntercomAllButton.Size = New Size(94, 36)
+        IntercomAllButton.Text = "Intercom All"
+        ' 
+        ' ToolStripSeparator5
+        ' 
+        ToolStripSeparator5.Name = "ToolStripSeparator5"
+        ToolStripSeparator5.Size = New Size(6, 39)
+        ' 
+        ' ToolStripLabel1
+        ' 
+        ToolStripLabel1.Name = "ToolStripLabel1"
+        ToolStripLabel1.Size = New Size(141, 36)
+        ToolStripLabel1.Text = "Add length (inches):"
+        ' 
+        ' tsbPrinted
+        ' 
+        tsbPrinted.Name = "tsbPrinted"
+        tsbPrinted.Size = New Size(132, 39)
+        ' 
+        ' tsbSave
+        ' 
+        tsbSave.DisplayStyle = ToolStripItemDisplayStyle.Image
+        tsbSave.ImageAlign = ContentAlignment.MiddleLeft
+        tsbSave.ImageTransparentColor = Color.Magenta
+        tsbSave.Name = "tsbSave"
+        tsbSave.Size = New Size(29, 36)
+        tsbSave.ToolTipText = "Save changes"
+        ' 
+        ' ToolStripSeparator2
+        ' 
+        ToolStripSeparator2.Name = "ToolStripSeparator2"
+        ToolStripSeparator2.Size = New Size(6, 39)
+        ' 
+        ' StatusStrip1
+        ' 
+        StatusStrip1.ImageScalingSize = New Size(20, 20)
+        StatusStrip1.Items.AddRange(New ToolStripItem() {ToolStripStatusLabel2, ToolStripStatusLabel1})
+        StatusStrip1.Location = New Point(0, 769)
+        StatusStrip1.Name = "StatusStrip1"
+        StatusStrip1.Padding = New Padding(1, 0, 19, 0)
+        StatusStrip1.Size = New Size(1616, 26)
+        StatusStrip1.TabIndex = 3
+        StatusStrip1.Text = "StatusStrip1"
+        ' 
+        ' ToolStripStatusLabel2
+        ' 
+        ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        ToolStripStatusLabel2.Size = New Size(1443, 20)
+        ToolStripStatusLabel2.Spring = True
+        ' 
+        ' ToolStripStatusLabel1
+        ' 
+        ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        ToolStripStatusLabel1.Size = New Size(153, 20)
+        ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        ' 
+        ' Timer2
+        ' 
+        Timer2.Enabled = True
+        Timer2.Interval = 1000
+        ' 
+        ' ManageDevice
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(1616, 795)
+        Controls.Add(TableLayoutPanel1)
+        Controls.Add(ToolStrip1)
+        Controls.Add(StatusStrip1)
+        Margin = New Padding(4, 5, 4, 5)
+        Name = "ManageDevice"
+        Text = "Kiosk Management"
+        CType(dgvDevice, ComponentModel.ISupportInitialize).EndInit()
+        TableLayoutPanel1.ResumeLayout(False)
+        ToolStrip1.ResumeLayout(False)
+        ToolStrip1.PerformLayout()
+        StatusStrip1.ResumeLayout(False)
+        StatusStrip1.PerformLayout()
+        ResumeLayout(False)
+        PerformLayout()
 
     End Sub
     Friend WithEvents dgvDevice As System.Windows.Forms.DataGridView
