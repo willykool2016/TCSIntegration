@@ -18,10 +18,6 @@ Imports SIPSorcery.SIP.App
 Imports SIPSorceryMedia.Windows
 
 Public Class SIPService
-    Dim client As New HttpClient()
-    Private webSocket As ClientWebSocket
-    Private cts As CancellationTokenSource
-
     Private sipTransport As SIPTransport
     Private userAgent As SIPUserAgent
     Private windowsAudio As WindowsAudioEndPoint
