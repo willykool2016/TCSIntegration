@@ -11,6 +11,7 @@ Public Class ManageDevice
     Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
     Dim intercomView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
     Dim notification As New CallNotification()
+    Dim sipService As New SIPService()
 
 #Region "Form Routines"
 
@@ -32,6 +33,8 @@ Public Class ManageDevice
             ToolStripProgressBar1.Minimum = 0
             ToolStripProgressBar1.Value = 0
             ToolStripProgressBar1.Maximum = tkbTrack.Value
+
+            sipService.StartListening()
             'backForm.Show()
         Catch ex As Exception
             Call Universals.Error_Messager(Me.Name, System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error loading the form. " & ex.Message, MsgBoxStyle.Critical, Me.Text)

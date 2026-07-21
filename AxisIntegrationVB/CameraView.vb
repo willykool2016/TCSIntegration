@@ -170,7 +170,7 @@ Public Class CameraView
         Dim viewFeed As VideoView = Globals.CreateCtrl(Of VideoView)(CameraPanel)
         viewFeed.MediaPlayer = _mediaPlayer
 
-        camPlay("willTestCam", "root", "192.168.0.208")
+        'camPlay("willTestCam", "root", "192.168.0.208")
 
     End Sub
 
