@@ -58,10 +58,10 @@ Public Class CameraView
         Me.KeyPreview = True
 
         'New code from Glade ----------------
-        Core.Initialize()
-        _libVLC = New LibVLC()
-        _mediaPlayer = New MediaPlayer(_libVLC)
-        VideoView1.MediaPlayer = _mediaPlayer
+        'Core.Initialize()
+        '_libVLC = New LibVLC()
+        '_mediaPlayer = New MediaPlayer(_libVLC)
+        'VideoView1.MediaPlayer = _mediaPlayer
     End Sub
 
     Private Sub CameraView_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -130,6 +130,7 @@ Public Class CameraView
     '    Cams(0).AudioTransmitStop()
     'End Sub
 
+    '-----------------------------------------------------------------------------------------------------------------
     'New code from Glade to make the video appear
 
 
@@ -146,6 +147,31 @@ Public Class CameraView
 
     End Sub
 
+    'for when we integrate not needing to press a button
+    Private Sub camPlay(user As String, passW As String, ip As String)
 
+        Dim username As String = user
+        Dim password As String = passW
+        Dim ipAddress As String = ip
+        Dim cameraUrl As String = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
+
+        Using media As New Media(_libVLC, New Uri(cameraUrl))
+            _mediaPlayer.Play(media)
+        End Using
+    End Sub
+
+
+    Public Sub Video_Init()
+        Core.Initialize()
+        _libVLC = New LibVLC()
+        _mediaPlayer = New MediaPlayer(_libVLC)
+        'Dim newAMC As AxAXISMEDIACONTROLLib.AxAxisMediaControl = Globals.CreateCtrl(Of AxAXISMEDIACONTROLLib.AxAxisMediaControl)(CameraPanel)
+
+        Dim viewFeed As VideoView = Globals.CreateCtrl(Of VideoView)(CameraPanel)
+        viewFeed.MediaPlayer = _mediaPlayer
+
+        camPlay("willTestCam", "root", "192.168.0.208")
+
+    End Sub
 
 End Class

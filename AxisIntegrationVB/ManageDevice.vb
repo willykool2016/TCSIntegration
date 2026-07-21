@@ -355,7 +355,7 @@ Public Class ManageDevice
             intercomView = New CameraView
             intercomView.Show()
         End If
-        intercomView.Axis_Init(camAddress)
+        'intercomView.Axis_Init(camAddress)
         intercomView.BringToFront()
         intercomView.Focus()
     End Function

@@ -33,6 +33,7 @@
     <PackageReference Include="FFmpeg.AutoGen" Version="8.1.0" />
     <PackageReference Include="Google.Protobuf" Version="3.35.1" />
     <PackageReference Include="IPNetwork2" Version="4.3.0" />
+    <PackageReference Include="LibVLCSharp" Version="3.10.0" />
     <PackageReference Include="LibVLCSharp.WinForms" Version="3.10.0" />
     <PackageReference Include="Makaretu.Dns.Multicast" Version="0.27.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
