@@ -50,6 +50,7 @@ Public Class IntercomForm
 
             lblStatus.Text = "Status: Connected & Listening"
             lblStatus.ForeColor = Color.Green
+
         Catch ex As Exception
             lblStatus.Text = "Status: Connection Failed"
             lblStatus.ForeColor = Color.Red
@@ -137,6 +138,7 @@ Public Class IntercomForm
             ' Explicitly tell SIPSorcery to open and listen on UDP Port 5060
             Dim sipChannel As New SIPUDPChannel(New Net.IPEndPoint(Net.IPAddress.Any, 5060))
             sipTransport.AddSIPChannel(sipChannel)
+            Debug.WriteLine("Listening on UDP 5060")
             ' -------------------------
             ' 2. Create the SIP User Agent (Your Softphone)
             userAgent = New SIPUserAgent(sipTransport, Nothing)
@@ -147,7 +149,12 @@ Public Class IntercomForm
                                                    End Sub
 
             ' 3. Tell the agent what to do when an incoming call arrives
-            AddHandler userAgent.OnIncomingCall, AddressOf Intercom_Ringing
+            'AddHandler userAgent.OnIncomingCall, AddressOf Intercom_Ringing
+            AddHandler userAgent.OnIncomingCall,
+    Sub(ua, req)
+        Debug.WriteLine("=== SIP USER AGENT RECEIVED INCOMING CALL ===")
+        Intercom_Ringing(ua, req)
+    End Sub
         Catch ex As Exception
             MessageBox.Show($"Failed to start listening: {ex.Message}")
         End Try
@@ -155,6 +162,7 @@ Public Class IntercomForm
 
     ' Update the Ringing event to HOLD the call instead of answering it
     Private Sub Intercom_Ringing(ua As SIPUserAgent, req As SIPRequest)
+        Debug.WriteLine("Incoming call detected!")
         Try
             activeCallAgent = ua
             activeServerAgent = ua.AcceptCall(req)
@@ -163,6 +171,7 @@ Public Class IntercomForm
                 ' We triggered this via HTTP, so auto-answer the audio immediately!
                 isAppInitiatingCall = False
 
+                'btnAnswer.PerformClick()
                 Me.Invoke(Async Sub()
                               lblStatus.Text = "Status: Connecting Audio..."
                               windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
@@ -184,6 +193,7 @@ Public Class IntercomForm
                               lblStatus.Text = "Status: INCOMING CALL! (Ringing...)"
                               lblStatus.ForeColor = Color.Orange
                               btnAnswer.Enabled = True
+                              CallNotification.Show()
                           End Sub)
             End If
         Catch ex As Exception
@@ -231,6 +241,7 @@ Public Class IntercomForm
 
             ' Set the flag so the incoming call event knows to auto-answer
             isAppInitiatingCall = True
+            Debug.WriteLine("Setting flag TRUE")
 
             ' Fire the HTTP pulse to trigger the intercom's action rule
             Await ActivateVirtualInput()
@@ -260,6 +271,9 @@ Public Class IntercomForm
                 ' 2. Turn the switch ON (This triggers the Axis Action Rule to call us)
                 Dim response = Await client.GetAsync(activateUrl)
                 Dim body = Await response.Content.ReadAsStringAsync()
+
+                Debug.WriteLine("Virtual Input Activate Response:")
+                Debug.WriteLine(body)
 
                 If Not response.IsSuccessStatusCode Then
                     MessageBox.Show($"Failed to trigger intercom: {response.StatusCode} - {body}")

@@ -33,7 +33,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.SipTest.Form1
+            Me.MainForm = Global.SipTest.IntercomForm
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
