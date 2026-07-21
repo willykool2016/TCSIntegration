@@ -4,11 +4,11 @@ Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI
 
 Public Class ManageDevice
-    Public Property ParentFormRef As Form1
+    Public Property ParentFormRef As VncForm
     Dim blnDGVUpdate As Boolean
     Dim WithEvents tkbTrack As New TrackBar
     Dim ToolStripProgressBar1 As New ToolStripProgressBar
-    Dim frm1 = Application.OpenForms.OfType(Of Form1).FirstOrDefault()
+    Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
     Dim intercomView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
 
 #Region "Form Routines"
@@ -31,6 +31,7 @@ Public Class ManageDevice
             ToolStripProgressBar1.Minimum = 0
             ToolStripProgressBar1.Value = 0
             ToolStripProgressBar1.Maximum = tkbTrack.Value
+            'backForm.Show()
         Catch ex As Exception
             Call Universals.Error_Messager(Me.Name, System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error loading the form. " & ex.Message, MsgBoxStyle.Critical, Me.Text)
         End Try
@@ -332,7 +333,7 @@ Public Class ManageDevice
     Private Async Function OpenVnc(rowIndex As Integer, openOwn As Boolean) As Task
         Dim curAddress = dgvDevice.Rows(rowIndex).Cells("address").Value.ToString()
         If openOwn Then
-            Dim frm2 As New Form1
+            Dim frm2 As New VncForm
             frm2.Show()
             Await frm2.CreateConnection(dgvDevice.Rows(rowIndex).Cells("address").Value.ToString(), dgvDevice.Rows(rowIndex).Cells("vnc_password").Value.ToString())
             frm2.BringToFront()
@@ -340,7 +341,7 @@ Public Class ManageDevice
             Return
         End If
         If frm1 Is Nothing OrElse frm1.IsDisposed Then
-            frm1 = New Form1()
+            frm1 = New VncForm()
             frm1.Show()
         End If
         Await frm1.CreateConnection(dgvDevice.Rows(rowIndex).Cells("address").Value.ToString(), dgvDevice.Rows(rowIndex).Cells("vnc_password").Value.ToString())
