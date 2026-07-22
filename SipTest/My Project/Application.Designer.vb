@@ -27,13 +27,13 @@ Namespace My
             Me.IsSingleInstance = false
             Me.EnableVisualStyles = true
             Me.SaveMySettingsOnExit = true
-            Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterMainFormCloses
+            Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterAllFormsClose
             Me.HighDpiMode = HighDpiMode.DpiUnaware
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.AxisIntegrationVB.ManageDevice
+            Me.MainForm = Global.SipTest.IntercomForm
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
