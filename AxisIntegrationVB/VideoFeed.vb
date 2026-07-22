@@ -58,7 +58,6 @@ Public Class VideoFeed
             _mediaPlayer.Play(media)
         End Using
 
-
     End Function
 
     Private Sub VideoView1_Click(sender As Object, e As EventArgs) Handles VideoView1.Click

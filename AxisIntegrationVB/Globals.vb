@@ -446,12 +446,15 @@ Module Globals
 
 #End Region
 
+    Private kioskNum = 1
+
 #Region "Will's Grid Functions"
     Public Function CreateCtrl(Of T As {Control, New})(grid As TableLayoutPanel) As T
         Dim ctrl As New T()
         ctrl.Dock = DockStyle.None
         ctrl.Anchor = AnchorStyles.None
         ctrl.BackColor = SystemColors.ControlDark
+
         If TypeOf DirectCast(ctrl, Object) Is Form Then
             DirectCast(DirectCast(ctrl, Object), Form).TopLevel = False
         End If
