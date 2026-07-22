@@ -1,4 +1,8 @@
-﻿Imports FFmpeg.AutoGen
+﻿Imports System.Security.Cryptography.X509Certificates
+Imports FFmpeg.AutoGen
+'--------
+Imports MySql.Data.MySqlClient
+'--------
 
 Public Class CameraView
     Private connectionString As String = "server=wills_vnc_connection;user=willsVncConnection;password=TMT$olutions;database=vnc_view_schema.list_device;"
@@ -130,28 +134,46 @@ Public Class CameraView
     '    End Using
     'End Sub
 
-
-    Public Sub Video_Init()
+    Public rowNum As Integer
+    Public Sub Video_Init(rowIndex As Integer)
         'Core.Initialize()
         '_libVLC = New LibVLC()
         '_mediaPlayer = New MediaPlayer(_libVLC)
         ''Dim newAMC As AxAXISMEDIACONTROLLib.AxAxisMediaControl = Globals.CreateCtrl(Of AxAXISMEDIACONTROLLib.AxAxisMediaControl)(CameraPanel)
-
         'Dim viewFeed As VideoView = Globals.CreateCtrl(Of VideoView)(CameraPanel)
         'viewFeed.MediaPlayer = _mediaPlayer
-
         'camPlay("willTestCam", "root", "192.168.0.208")
-
+        rowNum = rowIndex
         Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
         subForm.TopLevel = False
+
+        Dim subformName As String = ""
+
+        '------------------------------------------------------------------------------------
+
+        Dim connString As String = MYSQLCS
+        Dim query As String = "SELECT name FROM vnc_view_schema.list_device WHERE id = @id"
+        Using conn As New MySqlConnection(connString)
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@id", rowIndex)
+                Try
+                    conn.Open()
+                    Dim result As Object = cmd.ExecuteScalar()
+                    If result IsNot DBNull.Value AndAlso result IsNot Nothing Then
+                        Dim targetValue As String = result.ToString()
+                        subformName = targetValue
+                        'MessageBox.Show("Value: " & targetValue)
+                    Else
+                        MessageBox.Show("No data found.")
+
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show("Error: " & ex.InnerException.Message)
+                End Try
+            End Using
+        End Using
+        '-----------------------------------------------------------------------------------
+        subForm.Text = subformName
         subForm.Show()
-
-
     End Sub
-
-
-
-
-
-
 End Class
