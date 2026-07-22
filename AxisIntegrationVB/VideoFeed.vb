@@ -12,9 +12,14 @@ Public Class VideoFeed
         _libVLC = New LibVLC()
         _mediaPlayer = New MediaPlayer(_libVLC)
         VideoView1.MediaPlayer = _mediaPlayer
+
     End Sub
 
+
+
     Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
+
+
         Dim username As String = "willTestCam"
         Dim password As String = "root"
         Dim ipAddress As String = "192.168.0.208"
@@ -23,9 +28,14 @@ Public Class VideoFeed
         Using media As New Media(_libVLC, New Uri(cameraUrl))
             _mediaPlayer.Play(media)
         End Using
+
     End Sub
 
+
+
     Private Sub VideoFeed_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+
         If _mediaPlayer IsNot Nothing Then
             _mediaPlayer.Dispose()
         End If
@@ -33,7 +43,11 @@ Public Class VideoFeed
         If _libVLC IsNot Nothing Then
             _libVLC.Dispose()
         End If
+
     End Sub
+
+
+
 
 
 
