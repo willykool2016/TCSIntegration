@@ -107,7 +107,6 @@ Public Class CameraView
         Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
         subForm.Show()
 
-
     End Sub
 
 

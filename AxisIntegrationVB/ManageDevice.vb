@@ -11,6 +11,7 @@ Public Class ManageDevice
     Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
     Dim intercomView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
     Dim notification As New CallNotification()
+    Dim sipService As New SIPService()
 
 #Region "Form Routines"
 
@@ -32,7 +33,9 @@ Public Class ManageDevice
             ToolStripProgressBar1.Minimum = 0
             ToolStripProgressBar1.Value = 0
             ToolStripProgressBar1.Maximum = tkbTrack.Value
-            'backForm.Show()
+
+            AddHandler sipService.IncomingCallReceived, AddressOf ShowCallNotification
+            sipService.StartListening()
         Catch ex As Exception
             Call Universals.Error_Messager(Me.Name, System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error loading the form. " & ex.Message, MsgBoxStyle.Critical, Me.Text)
         End Try
@@ -370,16 +373,21 @@ Public Class ManageDevice
 #Region "Pipeline Requests (Will & Glade)"
     Private Sub ShowCallNotification()
 
+        If InvokeRequired Then
+            Invoke(New Action(AddressOf ShowCallNotification))
+            Return
+        End If
+
         Dim notification As New CallNotification()
 
         AddHandler notification.AnswerRequested,
         Sub()
-            MessageBox.Show("Answer requested")
+            sipService.AnswerCall()
         End Sub
 
         AddHandler notification.HangupRequested,
         Sub()
-            MessageBox.Show("Hangup requested")
+            sipService.HangUp()
         End Sub
 
         notification.Show()
