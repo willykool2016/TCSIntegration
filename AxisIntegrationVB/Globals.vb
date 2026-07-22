@@ -457,6 +457,7 @@ Module Globals
 
         If TypeOf DirectCast(ctrl, Object) Is Form Then
             DirectCast(DirectCast(ctrl, Object), Form).TopLevel = False
+            DirectCast(DirectCast(ctrl, Object), Form).Dock = DockStyle.Fill
         End If
         ResizeCtrl(ctrl, grid)
         If (Not ctrl.IsHandleCreated) Then

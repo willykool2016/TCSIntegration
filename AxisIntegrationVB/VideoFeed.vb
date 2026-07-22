@@ -14,6 +14,7 @@ Public Class VideoFeed
         _mediaPlayer = New MediaPlayer(_libVLC)
         VideoView1.MediaPlayer = _mediaPlayer
         Me.TopLevel = False
+        Me.Dock = DockStyle.Fill
         videoPlay()
     End Sub
 

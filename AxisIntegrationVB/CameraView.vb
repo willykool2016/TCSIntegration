@@ -1,4 +1,5 @@
-﻿Imports System.Security.Cryptography.X509Certificates
+﻿Imports System.Runtime.CompilerServices
+Imports System.Security.Cryptography.X509Certificates
 Imports FFmpeg.AutoGen
 '--------
 Imports MySql.Data.MySqlClient
