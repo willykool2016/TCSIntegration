@@ -56,6 +56,7 @@ Public Class VideoFeed
 
         Using media As New Media(_libVLC, New Uri(cameraUrl))
             _mediaPlayer.Play(media)
+            _mediaPlayer.Mute = True
         End Using
 
     End Function
