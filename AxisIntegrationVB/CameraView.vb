@@ -107,11 +107,6 @@ Public Class CameraView
         Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
         subForm.Show()
 
-<<<<<<< HEAD
-        'camPlay("willTestCam", "root", "192.168.0.208")
-=======
->>>>>>> 4a2d72f2065e726c54d5e303ee2f9156ce67ec2b
-
     End Sub
 
 
