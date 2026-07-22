@@ -361,7 +361,7 @@ Public Class ManageDevice
             intercomView.Show()
         End If
         'intercomView.Axis_Init(camAddress)
-        intercomView.Video_Init(rowIndex)
+        intercomView.Video_Init(rowIndex, camAddress)
         intercomView.BringToFront()
         intercomView.Focus()
     End Function

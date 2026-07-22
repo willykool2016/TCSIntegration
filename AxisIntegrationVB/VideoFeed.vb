@@ -1,11 +1,12 @@
 ﻿Imports LibVLCSharp.Shared
 Imports LibVLCSharp.WinForms
-
+Imports MySql.Data.MySqlClient
 
 Public Class VideoFeed
 
     Private _libVLC As LibVLC
     Private _mediaPlayer As MediaPlayer
+    Public Property ipAddress As String
 
     Private Sub VideoFeed_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Core.Initialize()
@@ -47,11 +48,14 @@ Public Class VideoFeed
 
     End Sub
 
-    Private Function videoPlay()
+    Private Sub videoPlay()
+        If ipAddress Is Nothing Then
+            ipAddress = "1234"
+        End If
 
         Dim username As String = "willTestCam"
         Dim password As String = "root"
-        Dim ipAddress As String = "192.168.0.208"
+        'Dim ipAddress As String = "192.168.0.208"
         Dim cameraUrl As String = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
 
         Using media As New Media(_libVLC, New Uri(cameraUrl))
@@ -59,7 +63,7 @@ Public Class VideoFeed
             _mediaPlayer.Mute = True
         End Using
 
-    End Function
+    End Sub
 
     Private Sub VideoView1_Click(sender As Object, e As EventArgs) Handles VideoView1.Click
 
