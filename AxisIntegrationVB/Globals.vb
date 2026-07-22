@@ -504,7 +504,7 @@ Module Globals
                             Next
                             grid.Controls.Add(ctrl, -1, -1)
                             Debug.WriteLine($"Added Control Hash: {ctrl.GetHashCode()}")
-                            Debug.WriteLine($"Form: {Form1.ClientSize}")
+                            Debug.WriteLine($"Form: {VncForm.ClientSize}")
                             Debug.WriteLine($"Grid: {grid.ClientSize}")
                             Debug.WriteLine($"VNC: {ctrl.ClientSize}")
                             grid.ResumeLayout(True)
