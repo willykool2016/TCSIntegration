@@ -74,7 +74,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("127.0.0.1")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("192.168.0.112")>  _
         Public ReadOnly Property SQL_ADDRESS() As String
             Get
                 Return CType(Me("SQL_ADDRESS"),String)

@@ -1,7 +1,7 @@
 ﻿Imports FFmpeg.AutoGen
 
 Public Class CameraView
-    Private connectionString As String = "server=localhost;user=root;password=TMT$olutions;database=vnc_view_schema.list_device;"
+    Private connectionString As String = "server=wills_vnc_connection;user=willsVncConnection;password=TMT$olutions;database=vnc_view_schema.list_device;"
     'Private ReadOnly Cams As New List(Of AxAXISMEDIACONTROLLib.AxAxisMediaControl)
     Private CameraPanel As New TableLayoutPanel With {
     .ColumnCount = 1,

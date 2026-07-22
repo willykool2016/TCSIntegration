@@ -13,23 +13,24 @@ Public Class VideoFeed
         _mediaPlayer = New MediaPlayer(_libVLC)
         VideoView1.MediaPlayer = _mediaPlayer
         Me.TopLevel = False
+        videoPlay()
     End Sub
 
 
 
-    Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
+    'Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
 
 
-        Dim username As String = "willTestCam"
-        Dim password As String = "root"
-        Dim ipAddress As String = "192.168.0.208"
-        Dim cameraUrl As String = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
+    '    Dim username As String = "willTestCam"
+    '    Dim password As String = "root"
+    '    Dim ipAddress As String = "192.168.0.208"
+    '    Dim cameraUrl As String = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
 
-        Using media As New Media(_libVLC, New Uri(cameraUrl))
-            _mediaPlayer.Play(media)
-        End Using
+    '    Using media As New Media(_libVLC, New Uri(cameraUrl))
+    '        _mediaPlayer.Play(media)
+    '    End Using
 
-    End Sub
+    'End Sub
 
 
 
@@ -46,9 +47,21 @@ Public Class VideoFeed
 
     End Sub
 
+    Private Function videoPlay()
+
+        Dim username As String = "willTestCam"
+        Dim password As String = "root"
+        Dim ipAddress As String = "192.168.0.208"
+        Dim cameraUrl As String = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
+
+        Using media As New Media(_libVLC, New Uri(cameraUrl))
+            _mediaPlayer.Play(media)
+        End Using
 
 
+    End Function
 
+    Private Sub VideoView1_Click(sender As Object, e As EventArgs) Handles VideoView1.Click
 
-
+    End Sub
 End Class
