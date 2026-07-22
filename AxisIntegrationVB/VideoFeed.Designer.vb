@@ -22,7 +22,7 @@ Partial Class VideoFeed
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-<<<<<<< HEAD
+
         btnPlay = New Button()
         VideoView1 = New LibVLCSharp.WinForms.VideoView()
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
@@ -47,7 +47,7 @@ Partial Class VideoFeed
         VideoView1.TabIndex = 2
         VideoView1.Text = "VideoView1"
         ' 
-=======
+
         VideoView1 = New LibVLCSharp.WinForms.VideoView()
         btnPlay = New Button()
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
@@ -72,31 +72,28 @@ Partial Class VideoFeed
         btnPlay.Text = "Play"
         btnPlay.UseVisualStyleBackColor = True
         ' 
->>>>>>> ffa14f44867ec1a2d80fb2a6e4d136ed00a52da2
-        ' VideoFeed
-        ' 
+
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-<<<<<<< HEAD
+
         ClientSize = New Size(682, 450)
         Controls.Add(VideoView1)
         Controls.Add(btnPlay)
-=======
+
         ClientSize = New Size(685, 450)
         Controls.Add(btnPlay)
         Controls.Add(VideoView1)
->>>>>>> ffa14f44867ec1a2d80fb2a6e4d136ed00a52da2
+
         Name = "VideoFeed"
         Text = "VideoFeed"
         CType(VideoView1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
-<<<<<<< HEAD
-    Friend WithEvents btnPlay As Button
-    Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
-=======
 
-    Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
     Friend WithEvents btnPlay As Button
->>>>>>> ffa14f44867ec1a2d80fb2a6e4d136ed00a52da2
+    Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
+
+
+
+
 End Class

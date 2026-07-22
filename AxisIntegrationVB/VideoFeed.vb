@@ -12,7 +12,7 @@ Public Class VideoFeed
         _libVLC = New LibVLC()
         _mediaPlayer = New MediaPlayer(_libVLC)
         VideoView1.MediaPlayer = _mediaPlayer
-
+        Me.TopLevel = False
     End Sub
 
 
