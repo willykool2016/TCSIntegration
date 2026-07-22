@@ -134,12 +134,12 @@ Public Class CameraView
     'New code from Glade to make the video appear
 
 
-    Private Sub btnPlay_Click(sender As Object, e As EventArgs) Handles btnPlay.Click
+    Private Sub btnPlay_Click(sender As Object, e As EventArgs)
 
-        Dim username As String = "willTestCam"
-        Dim password As String = "root"
-        Dim ipAddress As String = "192.168.0.208"
-        Dim cameraUrl As String = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
+        Dim username = "willTestCam"
+        Dim password = "root"
+        Dim ipAddress = "192.168.0.208"
+        Dim cameraUrl = "rtsp://" & username & ":" & password & "@" & ipAddress & "/axis-media/media.amp?videocodec=h264&camera=1&resolution=640x480"
 
         Using media As New Media(_libVLC, New Uri(cameraUrl))
             _mediaPlayer.Play(media)
@@ -162,15 +162,20 @@ Public Class CameraView
 
 
     Public Sub Video_Init()
-        Core.Initialize()
-        _libVLC = New LibVLC()
-        _mediaPlayer = New MediaPlayer(_libVLC)
-        'Dim newAMC As AxAXISMEDIACONTROLLib.AxAxisMediaControl = Globals.CreateCtrl(Of AxAXISMEDIACONTROLLib.AxAxisMediaControl)(CameraPanel)
+        'Core.Initialize()
+        '_libVLC = New LibVLC()
+        '_mediaPlayer = New MediaPlayer(_libVLC)
+        ''Dim newAMC As AxAXISMEDIACONTROLLib.AxAxisMediaControl = Globals.CreateCtrl(Of AxAXISMEDIACONTROLLib.AxAxisMediaControl)(CameraPanel)
 
-        Dim viewFeed As VideoView = Globals.CreateCtrl(Of VideoView)(CameraPanel)
-        viewFeed.MediaPlayer = _mediaPlayer
+        'Dim viewFeed As VideoView = Globals.CreateCtrl(Of VideoView)(CameraPanel)
+        'viewFeed.MediaPlayer = _mediaPlayer
 
-        camPlay("willTestCam", "root", "192.168.0.208")
+        'camPlay("willTestCam", "root", "192.168.0.208")
+
+        Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
+        subForm.TopLevel = False
+        subForm.Show()
+
 
     End Sub
 
