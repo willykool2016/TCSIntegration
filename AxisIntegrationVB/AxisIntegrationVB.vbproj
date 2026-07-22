@@ -127,6 +127,10 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Update="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
     <None Include="obj\Debug\AxisIntegrationVB.exe.config" />
     <None Include="obj\Debug\AxisIntegrationVB.vbproj.CoreCompileInputs.cache" />
     <None Include="obj\Debug\AxisIntegrationVB.vbproj.GenerateResource.cache" />

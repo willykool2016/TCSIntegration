@@ -452,6 +452,9 @@ Module Globals
         ctrl.Dock = DockStyle.None
         ctrl.Anchor = AnchorStyles.None
         ctrl.BackColor = SystemColors.ControlDark
+        If TypeOf DirectCast(ctrl, Object) Is Form Then
+            DirectCast(DirectCast(ctrl, Object), Form).TopLevel = False
+        End If
         ResizeCtrl(ctrl, grid)
         If (Not ctrl.IsHandleCreated) Then
             ctrl.CreateControl()

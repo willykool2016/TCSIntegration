@@ -369,6 +369,7 @@ Public Class ManageDevice
         SaveOrder()
     End Sub
 #End Region
+
 #Region "Pipeline Requests (Will & Glade)"
     Private Sub ShowCallNotification()
 

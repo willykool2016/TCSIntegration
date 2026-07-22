@@ -5,15 +5,13 @@ Public Class GridControls
     Public CtrlList As New List(Of Control)
 
     'Public Function CreateCtrl(Of T As {Control, New})() As T
-    '    'NumVnc += 1
     '    Dim ctrl As New T()
     '    ctrl.Dock = DockStyle.None
     '    ctrl.Anchor = AnchorStyles.None
     '    ctrl.BackColor = SystemColors.ControlDark
 
-    '    Form1.ResizeVncControl(ctrl)
 
-    '    'ResizeCtrl(T, TotalPanel)
+    '    ResizeCtrl(T, TotalPanel)
 
     '    If (Not ctrl.IsHandleCreated) Then
     '        ctrl.CreateControl()
