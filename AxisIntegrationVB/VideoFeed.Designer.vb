@@ -28,6 +28,7 @@ Partial Class VideoFeed
         ' 
         ' VideoView1
         ' 
+        VideoView1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         VideoView1.BackColor = Color.Black
         VideoView1.Location = New Point(14, 12)
         VideoView1.MediaPlayer = Nothing
