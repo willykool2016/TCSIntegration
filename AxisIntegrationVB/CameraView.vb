@@ -135,7 +135,7 @@ Public Class CameraView
     'End Sub
 
     Public rowNum As Integer
-    Public Sub Video_Init(rowIndex As Integer)
+    Public Sub Video_Init(rowIndex As Integer, ip As String)
         'Core.Initialize()
         '_libVLC = New LibVLC()
         '_mediaPlayer = New MediaPlayer(_libVLC)
@@ -146,6 +146,7 @@ Public Class CameraView
         rowNum = rowIndex
         Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
         subForm.TopLevel = False
+        subForm.ipAddress = ip
 
         Dim subformName As String = ""
 
