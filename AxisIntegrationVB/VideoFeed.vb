@@ -6,6 +6,7 @@ Public Class VideoFeed
 
     Private _libVLC As LibVLC
     Private _mediaPlayer As MediaPlayer
+    Private sipService As SIPService
     Public Property ipAddress As String
 
     Private Sub VideoFeed_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -89,5 +90,10 @@ Public Class VideoFeed
 
 
 
+    End Sub
+
+    Private Sub btnConnection_Click(sender As Object, e As EventArgs) Handles btnConnection.Click
+        sipService.isAppInitiatingCall = True
+        sipService.ActivateVirtualInput()
     End Sub
 End Class
