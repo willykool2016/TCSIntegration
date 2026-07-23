@@ -9,10 +9,11 @@ Public Class ManageDevice
     Dim WithEvents tkbTrack As New TrackBar
     Dim ToolStripProgressBar1 As New ToolStripProgressBar
     Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
-    Dim intercomView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
+    Dim intercomView As CameraView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
     Dim notification As New CallNotification()
     Dim sipService As New SIPService()
     Dim clickRowIndex As Integer
+    Private openFeeds As New Dictionary(Of String, VideoFeed)
 
 #Region "Form Routines"
 
@@ -367,12 +368,21 @@ Public Class ManageDevice
         Console.WriteLine($"Intercom Address: {camAddress}")
         If intercomView Is Nothing OrElse intercomView.IsDisposed Then
             intercomView = New CameraView
+            AddHandler intercomView.CameraViewClosed,
+                Sub()
+                    openFeeds.Clear()
+                End Sub
             intercomView.Show()
         End If
-        'intercomView.Axis_Init(camAddress)
-        intercomView.Video_Init(clickRowIndex, camAddress)
+        Dim feed = intercomView.Video_Init(clickRowIndex, camAddress)
+        openFeeds.Add(camAddress, feed)
         intercomView.BringToFront()
         intercomView.Focus()
+
+        AddHandler feed.FormClosed,
+            Sub()
+                openFeeds.Remove(camAddress)
+            End Sub
     End Function
 
     Private Sub ManageDevice_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
@@ -381,18 +391,24 @@ Public Class ManageDevice
 #End Region
 
 #Region "Pipeline Requests (Will & Glade)"
-    Private Sub ShowCallNotification()
+    Private Sub ShowCallNotification(callerIp As String)
 
         If InvokeRequired Then
-            Invoke(New Action(AddressOf ShowCallNotification))
+            Invoke(New Action(Of String)(AddressOf ShowCallNotification), callerIp)
             Return
         End If
 
         Dim notification As New CallNotification()
+        clickRowIndex = dgvDevice.Rows.Cast(Of DataGridViewRow)().ToList().FindIndex(Function(row) row.Cells("intercom_address").Value.ToString() = callerIp)
         notification.CallerName = dgvDevice.Rows(clickRowIndex).Cells("name").Value.ToString()
 
         AddHandler notification.AnswerRequested,
         Sub()
+            If Not openFeeds.ContainsKey(callerIp) Then
+                OpenIntercom()
+            Else
+                ' Already open
+            End If
             sipService.AnswerCall()
         End Sub
 

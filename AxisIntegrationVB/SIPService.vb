@@ -28,11 +28,9 @@ Public Class SIPService
     Private activeServerAgent As SIPServerUserAgent
 
     Private isAppInitiatingCall As Boolean = False
-    Private pendingRequest As SIPRequest
-    Private startRinging As Boolean
 
     Public Event CallStatusChanged(status As String)
-    Public Event IncomingCallReceived()
+    Public Event IncomingCallReceived(callerIp As String)
     Public Property SipIP As String
 
     'Automatically listens for incoming traffic
@@ -40,7 +38,6 @@ Public Class SIPService
         Try
             ' 1. Set up the SIP Transport
             sipTransport = New SIPTransport()
-            startRinging = True
 
             ' Explicitly tell SIPSorcery to open and listen on UDP Port 5060
             Dim sipChannel As New SIPUDPChannel(New Net.IPEndPoint(Net.IPAddress.Any, 5060))
@@ -88,12 +85,11 @@ Public Class SIPService
                 Else
                     RaiseEvent CallStatusChanged("Status: Failed to auto-answer.")
                 End If
-                startRinging = True
             Else
                 ' Normal incoming call (someone physically pushed the button outside)
-                pendingRequest = req
                 RaiseEvent CallStatusChanged("Status: INCOMING CALL! (Ringing...)")
-                RaiseEvent IncomingCallReceived()
+                Dim callerIp As String = req.RemoteSIPEndPoint.Address.ToString()
+                RaiseEvent IncomingCallReceived(callerIp)
             End If
         Catch ex As Exception
             RaiseEvent CallStatusChanged($"Status: Ring Error - {ex.Message}")
@@ -138,7 +134,7 @@ Public Class SIPService
 
     'Answer the incoming call
     Public Async Sub AnswerCall()
-        If activeCallAgent Is Nothing OrElse pendingRequest Is Nothing Then Return
+        If activeCallAgent Is Nothing OrElse activeServerAgent Is Nothing Then Return
         Try
             ' 1. Set up the Audio endpoints (Mic and Speakers)
             windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)

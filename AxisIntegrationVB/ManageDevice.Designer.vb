@@ -72,11 +72,11 @@ Partial Class ManageDevice
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.False
         dgvDevice.DefaultCellStyle = DataGridViewCellStyle2
         dgvDevice.Dock = DockStyle.Fill
-        dgvDevice.Location = New Point(4, 5)
-        dgvDevice.Margin = New Padding(4, 5, 4, 5)
+        dgvDevice.Location = New Point(4, 4)
+        dgvDevice.Margin = New Padding(4, 4, 4, 4)
         dgvDevice.Name = "dgvDevice"
         dgvDevice.RowHeadersWidth = 51
-        dgvDevice.Size = New Size(1608, 720)
+        dgvDevice.Size = New Size(1406, 527)
         dgvDevice.TabIndex = 0
         ' 
         ' Timer1
@@ -91,12 +91,12 @@ Partial Class ManageDevice
         TableLayoutPanel1.Controls.Add(dgvDevice, 0, 0)
         TableLayoutPanel1.Dock = DockStyle.Fill
         TableLayoutPanel1.Location = New Point(0, 39)
-        TableLayoutPanel1.Margin = New Padding(4, 5, 4, 5)
+        TableLayoutPanel1.Margin = New Padding(4, 4, 4, 4)
         TableLayoutPanel1.Name = "TableLayoutPanel1"
         TableLayoutPanel1.RowCount = 1
         TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 100F))
-        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Absolute, 702F))
-        TableLayoutPanel1.Size = New Size(1616, 730)
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Absolute, 548F))
+        TableLayoutPanel1.Size = New Size(1414, 535)
         TableLayoutPanel1.TabIndex = 1
         ' 
         ' ToolStrip1
@@ -105,7 +105,7 @@ Partial Class ManageDevice
         ToolStrip1.Items.AddRange(New ToolStripItem() {tsbRefresh, ToolStripSeparator1, tsbPing, ToolStripSeparator3, VncAllButton, ToolStripSeparator4, IntercomAllButton, ToolStripSeparator5, ToolStripLabel1, tsbPrinted, tsbSave, ToolStripSeparator2})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(1616, 39)
+        ToolStrip1.Size = New Size(1414, 39)
         ToolStrip1.TabIndex = 2
         ToolStrip1.Text = "ToolStrip1"
         ' 
@@ -143,7 +143,7 @@ Partial Class ManageDevice
         VncAllButton.Image = CType(resources.GetObject("VncAllButton.Image"), Image)
         VncAllButton.ImageTransparentColor = Color.Magenta
         VncAllButton.Name = "VncAllButton"
-        VncAllButton.Size = New Size(64, 36)
+        VncAllButton.Size = New Size(52, 36)
         VncAllButton.Text = "VNC All"
         ' 
         ' ToolStripSeparator4
@@ -157,7 +157,7 @@ Partial Class ManageDevice
         IntercomAllButton.Image = CType(resources.GetObject("IntercomAllButton.Image"), Image)
         IntercomAllButton.ImageTransparentColor = Color.Magenta
         IntercomAllButton.Name = "IntercomAllButton"
-        IntercomAllButton.Size = New Size(94, 36)
+        IntercomAllButton.Size = New Size(76, 36)
         IntercomAllButton.Text = "Intercom All"
         ' 
         ' ToolStripSeparator5
@@ -168,13 +168,13 @@ Partial Class ManageDevice
         ' ToolStripLabel1
         ' 
         ToolStripLabel1.Name = "ToolStripLabel1"
-        ToolStripLabel1.Size = New Size(141, 36)
+        ToolStripLabel1.Size = New Size(114, 36)
         ToolStripLabel1.Text = "Add length (inches):"
         ' 
         ' tsbPrinted
         ' 
         tsbPrinted.Name = "tsbPrinted"
-        tsbPrinted.Size = New Size(132, 39)
+        tsbPrinted.Size = New Size(116, 39)
         ' 
         ' tsbSave
         ' 
@@ -182,7 +182,7 @@ Partial Class ManageDevice
         tsbSave.ImageAlign = ContentAlignment.MiddleLeft
         tsbSave.ImageTransparentColor = Color.Magenta
         tsbSave.Name = "tsbSave"
-        tsbSave.Size = New Size(29, 36)
+        tsbSave.Size = New Size(23, 36)
         tsbSave.ToolTipText = "Save changes"
         ' 
         ' ToolStripSeparator2
@@ -194,23 +194,23 @@ Partial Class ManageDevice
         ' 
         StatusStrip1.ImageScalingSize = New Size(20, 20)
         StatusStrip1.Items.AddRange(New ToolStripItem() {ToolStripStatusLabel2, ToolStripStatusLabel1})
-        StatusStrip1.Location = New Point(0, 769)
+        StatusStrip1.Location = New Point(0, 574)
         StatusStrip1.Name = "StatusStrip1"
-        StatusStrip1.Padding = New Padding(1, 0, 19, 0)
-        StatusStrip1.Size = New Size(1616, 26)
+        StatusStrip1.Padding = New Padding(1, 0, 17, 0)
+        StatusStrip1.Size = New Size(1414, 22)
         StatusStrip1.TabIndex = 3
         StatusStrip1.Text = "StatusStrip1"
         ' 
         ' ToolStripStatusLabel2
         ' 
         ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        ToolStripStatusLabel2.Size = New Size(1443, 20)
+        ToolStripStatusLabel2.Size = New Size(1245, 17)
         ToolStripStatusLabel2.Spring = True
         ' 
         ' ToolStripStatusLabel1
         ' 
         ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        ToolStripStatusLabel1.Size = New Size(153, 20)
+        ToolStripStatusLabel1.Size = New Size(120, 17)
         ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         ' 
         ' Timer2
@@ -220,13 +220,13 @@ Partial Class ManageDevice
         ' 
         ' ManageDevice
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1616, 795)
+        ClientSize = New Size(1414, 596)
         Controls.Add(TableLayoutPanel1)
         Controls.Add(ToolStrip1)
         Controls.Add(StatusStrip1)
-        Margin = New Padding(4, 5, 4, 5)
+        Margin = New Padding(4, 4, 4, 4)
         Name = "ManageDevice"
         Text = "Kiosk Management"
         CType(dgvDevice, ComponentModel.ISupportInitialize).EndInit()
