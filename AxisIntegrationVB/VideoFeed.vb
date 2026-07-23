@@ -68,4 +68,26 @@ Public Class VideoFeed
     Private Sub VideoView1_Click(sender As Object, e As EventArgs) Handles VideoView1.Click
 
     End Sub
+
+    Private Sub btnMute_Click(sender As Object, e As EventArgs) Handles btnMute.Click
+
+        MuteUnmuted()
+
+
+
+
+
+    End Sub
+
+    Dim supService As SIPService
+
+    Private Sub MuteUnmuted()
+
+
+        Dim muteObj As New SIPService()
+        Dim result = muteObj.ControlAudioSub()
+
+
+
+    End Sub
 End Class

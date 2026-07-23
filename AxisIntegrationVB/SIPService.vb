@@ -33,6 +33,8 @@ Public Class SIPService
     Public Event IncomingCallReceived(callerIp As String)
     Public Property SipIP As String
 
+    Dim voipMediaSession As VoIPMediaSession
+
     'Automatically listens for incoming traffic
     Public Sub StartListening()
         Try
@@ -77,7 +79,8 @@ Public Class SIPService
                 RaiseEvent CallStatusChanged("Status: Connecting Audio...")
 
                 windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
-                Dim voipMediaSession As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
+                Dim voipMediaSession2 As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
+                voipMediaSession = voipMediaSession2
                 Dim answered = Await activeCallAgent.Answer(activeServerAgent, voipMediaSession)
 
                 If answered Then
@@ -191,5 +194,35 @@ Public Class SIPService
         Catch ex As Exception
             Debug.WriteLine(ex.ToString())
         End Try
+    End Sub
+
+    Private muted As Boolean = False
+
+    Public Function ControlAudioSub() As String
+        If muted = False Then
+            MuteMicrophone()
+            Return "MUTED"
+        Else
+            UnmuteMicrophone()
+            Return "UNMUTED"
+        End If
+    End Function
+
+    'Private Sub AnswerButton_Click(sender As Object, e As EventArgs) Handles AnswerButton.Click
+    '    RaiseEvent AnswerRequested()
+    '    Me.Hide()
+    'End Sub
+
+    Public Async Sub MuteMicrophone()
+
+        If voipMediaSession.AudioExtrasSource IsNot Nothing Then
+            Await voipMediaSession.AudioExtrasSource.PauseAudio()
+        End If
+    End Sub
+
+    Public Async Sub UnmuteMicrophone()
+        If voipMediaSession.AudioExtrasSource IsNot Nothing Then
+            Await voipMediaSession.AudioExtrasSource.StartAudio()
+        End If
     End Sub
 End Class

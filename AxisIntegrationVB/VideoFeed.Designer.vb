@@ -23,32 +23,67 @@ Partial Class VideoFeed
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         VideoView1 = New LibVLCSharp.WinForms.VideoView()
+        TableLayoutPanel1 = New TableLayoutPanel()
+        btnMute = New Button()
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
+        TableLayoutPanel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' VideoView1
         ' 
         VideoView1.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         VideoView1.BackColor = Color.Black
-        VideoView1.Location = New Point(14, 12)
+        TableLayoutPanel1.SetColumnSpan(VideoView1, 2)
+        VideoView1.Location = New Point(3, 2)
+        VideoView1.Margin = New Padding(3, 2, 3, 2)
         VideoView1.MediaPlayer = Nothing
         VideoView1.Name = "VideoView1"
-        VideoView1.Size = New Size(434, 252)
+        VideoView1.Size = New Size(396, 170)
         VideoView1.TabIndex = 0
         VideoView1.Text = "VideoView1"
         ' 
+        ' TableLayoutPanel1
+        ' 
+        TableLayoutPanel1.ColumnCount = 2
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TableLayoutPanel1.Controls.Add(VideoView1, 0, 0)
+        TableLayoutPanel1.Controls.Add(btnMute, 0, 1)
+        TableLayoutPanel1.Dock = DockStyle.Fill
+        TableLayoutPanel1.Location = New Point(0, 0)
+        TableLayoutPanel1.Name = "TableLayoutPanel1"
+        TableLayoutPanel1.RowCount = 2
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 84.05797F))
+        TableLayoutPanel1.RowStyles.Add(New RowStyle(SizeType.Percent, 15.942029F))
+        TableLayoutPanel1.Size = New Size(402, 207)
+        TableLayoutPanel1.TabIndex = 1
+        ' 
+        ' btnMute
+        ' 
+        btnMute.Dock = DockStyle.Fill
+        btnMute.Location = New Point(3, 177)
+        btnMute.Name = "btnMute"
+        btnMute.Size = New Size(195, 27)
+        btnMute.TabIndex = 1
+        btnMute.Text = "Mute"
+        btnMute.UseVisualStyleBackColor = True
+        ' 
         ' VideoFeed
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(460, 276)
-        Controls.Add(VideoView1)
+        ClientSize = New Size(402, 207)
+        Controls.Add(TableLayoutPanel1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "VideoFeed"
         Text = "VideoFeed"
         CType(VideoView1, ComponentModel.ISupportInitialize).EndInit()
+        TableLayoutPanel1.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
     Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents btnMute As Button
 
 
 
