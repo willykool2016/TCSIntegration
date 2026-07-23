@@ -27,7 +27,7 @@ Public Class SIPService
     Private activeCallAgent As SIPUserAgent
     Private activeServerAgent As SIPServerUserAgent
 
-    Private isAppInitiatingCall As Boolean = False
+    Public isAppInitiatingCall As Boolean = False
 
     Public Event CallStatusChanged(status As String)
     Public Event IncomingCallReceived(callerIp As String)
@@ -71,7 +71,7 @@ Public Class SIPService
         Try
             activeCallAgent = ua
             activeServerAgent = ua.AcceptCall(req)
-
+            'MessageBox.Show(isAppInitiatingCall.ToString())
             If isAppInitiatingCall Then
                 ' We triggered this via HTTP, so auto-answer the audio immediately!
                 isAppInitiatingCall = False
@@ -101,9 +101,9 @@ Public Class SIPService
     End Sub
 
     'Activate Led when call made by computer
-    Public Async Function ActivateVirtualInput() As Task
-        Dim deactivateUrl As String = "http://192.168.0.208/axis-cgi/virtualinput/deactivate.cgi?schemaversion=1&port=1"
-        Dim activateUrl As String = "http://192.168.0.208/axis-cgi/virtualinput/activate.cgi?schemaversion=1&port=1"
+    Public Async Function ActivateVirtualInput(ipAddress As String) As Task
+        Dim deactivateUrl As String = $"http://{ipAddress}/axis-cgi/virtualinput/deactivate.cgi?schemaversion=1&port=1"
+        Dim activateUrl As String = $"http://{ipAddress}/axis-cgi/virtualinput/activate.cgi?schemaversion=1&port=1"
 
         Dim handler As New HttpClientHandler()
         handler.Credentials = New NetworkCredential("willTestCam", "root")

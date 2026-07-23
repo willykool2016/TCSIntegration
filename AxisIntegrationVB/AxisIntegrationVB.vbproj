@@ -25,6 +25,13 @@
     <DocumentationFile>AxisIntegrationVB.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="IntercomForm.Designer.vb" />
+    <Compile Remove="IntercomForm.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="IntercomForm.resx" />
+  </ItemGroup>
 
 	
 	

@@ -383,6 +383,19 @@ Public Class ManageDevice
             Sub()
                 openFeeds.Remove(camAddress)
             End Sub
+
+        AddHandler feed.ConnectionRequested,
+            Async Sub(ipAddress)
+                'MessageBox.Show("Initiating call to " & ipAddress)
+                sipService.isAppInitiatingCall = True
+                Await sipService.ActivateVirtualInput(ipAddress)
+            End Sub
+
+        AddHandler feed.DisconnectRequested,
+            Async Sub()
+                'MessageBox.Show("Initiating call to " & ipAddress)
+                sipService.HangUp()
+            End Sub
     End Function
 
     Private Sub ManageDevice_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)

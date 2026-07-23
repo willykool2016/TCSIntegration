@@ -6,9 +6,9 @@ Public Class VideoFeed
 
     Private _libVLC As LibVLC
     Private _mediaPlayer As MediaPlayer
-    Private sipService As SIPService
     Public Property ipAddress As String
-
+    Public Event ConnectionRequested(ipAddress As String)
+    Public Event DisconnectRequested()
     Private Sub VideoFeed_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Core.Initialize()
         _libVLC = New LibVLC()
@@ -38,7 +38,6 @@ Public Class VideoFeed
 
 
     Private Sub VideoFeed_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-
 
         If _mediaPlayer IsNot Nothing Then
             _mediaPlayer.Dispose()
@@ -93,7 +92,14 @@ Public Class VideoFeed
     End Sub
 
     Private Sub btnConnection_Click(sender As Object, e As EventArgs) Handles btnConnection.Click
-        sipService.isAppInitiatingCall = True
-        sipService.ActivateVirtualInput()
+        If btnConnection.Text = "Connect" Then
+            RaiseEvent ConnectionRequested(ipAddress)
+            btnConnection.BackColor = Color.Firebrick
+            btnConnection.Text = "Disconnect"
+        Else
+            RaiseEvent DisconnectRequested()
+            btnConnection.BackColor = Color.ForestGreen
+            btnConnection.Text = "Connect"
+        End If
     End Sub
 End Class
