@@ -25,6 +25,7 @@ Partial Class VideoFeed
         VideoView1 = New LibVLCSharp.WinForms.VideoView()
         TableLayoutPanel1 = New TableLayoutPanel()
         btnMute = New Button()
+        btnConnection = New Button()
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
         TableLayoutPanel1.SuspendLayout()
         SuspendLayout()
@@ -49,6 +50,7 @@ Partial Class VideoFeed
         TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
         TableLayoutPanel1.Controls.Add(VideoView1, 0, 0)
         TableLayoutPanel1.Controls.Add(btnMute, 0, 1)
+        TableLayoutPanel1.Controls.Add(btnConnection, 1, 1)
         TableLayoutPanel1.Dock = DockStyle.Fill
         TableLayoutPanel1.Location = New Point(0, 0)
         TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -68,6 +70,19 @@ Partial Class VideoFeed
         btnMute.Text = "Mute"
         btnMute.UseVisualStyleBackColor = True
         ' 
+        ' btnConnection
+        ' 
+        btnConnection.BackColor = Color.ForestGreen
+        btnConnection.Dock = DockStyle.Fill
+        btnConnection.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnConnection.ForeColor = SystemColors.Control
+        btnConnection.Location = New Point(204, 177)
+        btnConnection.Name = "btnConnection"
+        btnConnection.Size = New Size(195, 27)
+        btnConnection.TabIndex = 2
+        btnConnection.Text = "Connect"
+        btnConnection.UseVisualStyleBackColor = False
+        ' 
         ' VideoFeed
         ' 
         AutoScaleDimensions = New SizeF(7.0F, 15.0F)
@@ -84,6 +99,7 @@ Partial Class VideoFeed
     Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents btnMute As Button
+    Friend WithEvents btnConnection As Button
 
 
 
