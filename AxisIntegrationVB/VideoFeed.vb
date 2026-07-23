@@ -102,4 +102,8 @@ Public Class VideoFeed
             btnConnection.Text = "Connect"
         End If
     End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+        Me.Hide()
+    End Sub
 End Class

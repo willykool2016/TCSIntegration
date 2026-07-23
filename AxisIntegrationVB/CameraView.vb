@@ -19,7 +19,6 @@ Public Class CameraView
         .BackColor = SystemColors.ControlDarkDark
     }
     Private audioSwitch As Boolean = False
-    Dim lsIntercoms As New List(Of String)()
 
     Public Sub New()
         InitializeComponent()
@@ -149,12 +148,9 @@ Public Class CameraView
         Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
         subForm.TopLevel = False
         subForm.ipAddress = ip
+        subForm.FormBorderStyle = FormBorderStyle.None
+        subForm.ToolStrip1.Left = subForm.ClientSize.Width - subForm.ToolStrip1.Width
         Dim subformName As String = ""
-
-        AddHandler subForm.FormClosed,
-            Sub(sender, e)
-                lsIntercoms.Remove(ip)
-            End Sub
 
         '------------------------------------------------------------------------------------
 
