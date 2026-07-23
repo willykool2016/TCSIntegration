@@ -371,6 +371,7 @@ Public Class ManageDevice
             AddHandler intercomView.CameraViewClosed,
                 Sub()
                     openFeeds.Clear()
+                    sipService.HangUp()
                 End Sub
             intercomView.Show()
         End If
@@ -382,6 +383,7 @@ Public Class ManageDevice
         AddHandler feed.FormClosed,
             Sub()
                 openFeeds.Remove(camAddress)
+                sipService.HangUp()
             End Sub
 
         AddHandler feed.ConnectionRequested,
@@ -419,9 +421,9 @@ Public Class ManageDevice
         Sub()
             If Not openFeeds.ContainsKey(callerIp) Then
                 OpenIntercom()
-            Else
-                ' Already open
             End If
+            openFeeds(callerIp).btnConnection.BackColor = Color.Firebrick
+            openFeeds(callerIp).btnConnection.Text = "Disconnect"
             sipService.AnswerCall()
         End Sub
 
