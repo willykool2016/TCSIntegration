@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Diagnostics.CodeAnalysis
+Imports System.IO
 Imports System.Text
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI
@@ -8,6 +9,8 @@ Public Class ManageDevice
     Dim blnDGVUpdate As Boolean
     Dim WithEvents tkbTrack As New TrackBar
     Dim ToolStripProgressBar1 As New ToolStripProgressBar
+
+    '------Wills Variables & Initializations------'
     Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
     Dim intercomView As CameraView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
     Dim notification As New CallNotification()
@@ -300,6 +303,11 @@ Public Class ManageDevice
 #End Region
 
 #Region "Will's Functions and Routines"
+    Private Sub ManageDevice_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
+        SaveOrder()
+    End Sub
+
+    'saves the order for the Vnc All Button
     Private Sub SaveOrder()
         Using cn As New MySqlConnection(MYSQLCS)
             cn.Open()
@@ -320,6 +328,7 @@ Public Class ManageDevice
         End Using
     End Sub
 
+    'Opens up all Vnc Viewers in order of the vnc_order column
     Private Async Sub VncAllButton_ClickAsync(sender As Object, e As EventArgs) Handles VncAllButton.Click
         'Find Highest Order
         Dim zerosList = New List(Of Integer)
@@ -332,6 +341,7 @@ Public Class ManageDevice
         Next
     End Sub
 
+    'Opens up all Intercom Viewers
     Private Async Sub IntercomAllButton_ClickAsync(sender As Object, e As EventArgs) Handles IntercomAllButton.Click
         'Find Highest Order
         Dim zerosList = New List(Of Integer)
@@ -343,7 +353,8 @@ Public Class ManageDevice
             Await OpenIntercom()
         Next
     End Sub
-    'This below is part of the Add VNC function, and VNC view, and VNC All
+
+    'Opens a single Vnc Viewer, either in the main form or a new form based on the openOwn parameter
     Private Async Function OpenVnc(openOwn As Boolean) As Task
         Dim curAddress = dgvDevice.Rows(clickRowIndex).Cells("address").Value.ToString()
         If openOwn Then
@@ -363,11 +374,13 @@ Public Class ManageDevice
         frm1.Focus()
     End Function
 
+    'Opens a single Intercom Viewer
     Private Async Function OpenIntercom() As Task
         Dim camAddress = dgvDevice.Rows(clickRowIndex).Cells("intercom_address").Value.ToString()
         Console.WriteLine($"Intercom Address: {camAddress}")
         If intercomView Is Nothing OrElse intercomView.IsDisposed Then
             intercomView = New CameraView
+            'Events when the entire CameraView form is closed, clears all intercoms from the dictionary
             AddHandler intercomView.CameraViewClosed,
                 Sub()
                     openFeeds.Clear()
@@ -380,12 +393,14 @@ Public Class ManageDevice
         intercomView.BringToFront()
         intercomView.Focus()
 
+        'Events when a video feed is closed, clears a single intercom from the dictionary
         AddHandler feed.FormClosed,
             Sub()
                 openFeeds.Remove(camAddress)
                 sipService.HangUp()
             End Sub
 
+        'Events when  a call is connected
         AddHandler feed.ConnectionRequested,
             Async Sub(ipAddress)
                 'MessageBox.Show("Initiating call to " & ipAddress)
@@ -393,6 +408,7 @@ Public Class ManageDevice
                 Await sipService.ActivateVirtualInput(ipAddress)
             End Sub
 
+        'Events when a call is disconnected 
         AddHandler feed.DisconnectRequested,
             Async Sub()
                 'MessageBox.Show("Initiating call to " & ipAddress)
@@ -400,12 +416,7 @@ Public Class ManageDevice
             End Sub
     End Function
 
-    Private Sub ManageDevice_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
-        SaveOrder()
-    End Sub
-#End Region
-
-#Region "Pipeline Requests (Will & Glade)"
+    'When an incoming call is received, a popup notification is displayed with callers name and options to answer or decline
     Private Sub ShowCallNotification(callerIp As String)
 
         If InvokeRequired Then

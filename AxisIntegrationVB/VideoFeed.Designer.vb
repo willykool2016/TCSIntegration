@@ -22,12 +22,18 @@ Partial Class VideoFeed
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(VideoFeed))
         VideoView1 = New LibVLCSharp.WinForms.VideoView()
         TableLayoutPanel1 = New TableLayoutPanel()
         btnMute = New Button()
         btnConnection = New Button()
+        ToolStrip1 = New ToolStrip()
+        ToolStripButton1 = New ToolStripButton()
+        ToolStripButton2 = New ToolStripButton()
+        ToolStripButton3 = New ToolStripButton()
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
         TableLayoutPanel1.SuspendLayout()
+        ToolStrip1.SuspendLayout()
         SuspendLayout()
         ' 
         ' VideoView1
@@ -83,23 +89,70 @@ Partial Class VideoFeed
         btnConnection.Text = "Connect"
         btnConnection.UseVisualStyleBackColor = False
         ' 
+        ' ToolStrip1
+        ' 
+        ToolStrip1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        ToolStrip1.Dock = DockStyle.None
+        ToolStrip1.Items.AddRange(New ToolStripItem() {ToolStripButton1, ToolStripButton2, ToolStripButton3})
+        ToolStrip1.LayoutStyle = ToolStripLayoutStyle.Flow
+        ToolStrip1.Location = New Point(0, 0)
+        ToolStrip1.Name = "ToolStrip1"
+        ToolStrip1.Size = New Size(101, 23)
+        ToolStrip1.TabIndex = 2
+        ToolStrip1.Text = "ToolStrip1"
+        ' 
+        ' ToolStripButton1
+        ' 
+        ToolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image
+        ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), Image)
+        ToolStripButton1.ImageTransparentColor = Color.Magenta
+        ToolStripButton1.Name = "ToolStripButton1"
+        ToolStripButton1.Size = New Size(23, 20)
+        ToolStripButton1.Text = "ToolStripButton1"
+        ' 
+        ' ToolStripButton2
+        ' 
+        ToolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Image
+        ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), Image)
+        ToolStripButton2.ImageTransparentColor = Color.Magenta
+        ToolStripButton2.Name = "ToolStripButton2"
+        ToolStripButton2.Size = New Size(23, 20)
+        ToolStripButton2.Text = "ToolStripButton2"
+        ' 
+        ' ToolStripButton3
+        ' 
+        ToolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Image
+        ToolStripButton3.Image = CType(resources.GetObject("ToolStripButton3.Image"), Image)
+        ToolStripButton3.ImageTransparentColor = Color.Magenta
+        ToolStripButton3.Name = "ToolStripButton3"
+        ToolStripButton3.Size = New Size(23, 20)
+        ToolStripButton3.Text = "ToolStripButton3"
+        ' 
         ' VideoFeed
         ' 
         AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(402, 207)
+        Controls.Add(ToolStrip1)
         Controls.Add(TableLayoutPanel1)
         Margin = New Padding(3, 2, 3, 2)
         Name = "VideoFeed"
         Text = "VideoFeed"
         CType(VideoView1, ComponentModel.ISupportInitialize).EndInit()
         TableLayoutPanel1.ResumeLayout(False)
+        ToolStrip1.ResumeLayout(False)
+        ToolStrip1.PerformLayout()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
     Friend WithEvents VideoView1 As LibVLCSharp.WinForms.VideoView
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents btnMute As Button
     Friend WithEvents btnConnection As Button
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents ToolStripButton2 As ToolStripButton
+    Friend WithEvents ToolStripButton3 As ToolStripButton
 
 
 

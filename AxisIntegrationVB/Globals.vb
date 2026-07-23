@@ -499,6 +499,7 @@ Module Globals
         If Not grid.IsHandleCreated Then Return
         Try
             grid.Invoke(Sub()
+
                             grid.GrowStyle = TableLayoutPanelGrowStyle.FixedSize
                             grid.ColumnStyles.Clear()
                             grid.RowStyles.Clear()
