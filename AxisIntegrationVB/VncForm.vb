@@ -16,9 +16,9 @@ Partial Public Class VncForm
 #Region "Initial Var and Constructors"
     Private client As New VncClient()
     Private connectionString As String = "server=localhost;user=root;password=TMT$olutions;database=vnc_view_schema.list_device;"
-    Private ManageDevice As New ManageDevice()
+    Private ManageDevice As ManageDevice
     Private NumVnc As Integer = 0
-    Private MaxVncCount As Integer = If(ManageDevice.dgvDevice.RowCount > 9, 4, 3)
+    Private MaxVncCount As Integer = 3
     Private TotalPanel As New TableLayoutPanel With {
         .ColumnCount = 1,
         .Dock = System.Windows.Forms.DockStyle.Fill,
@@ -39,6 +39,11 @@ Partial Public Class VncForm
     Public Sub New()
         InitializeComponent()
         Me.IsMdiContainer = True
+        ' Reference the existing ManageDevice main form if it is already open
+        ManageDevice = Application.OpenForms.OfType(Of ManageDevice)().FirstOrDefault()
+        If ManageDevice IsNot Nothing Then
+            MaxVncCount = If(ManageDevice.dgvDevice.RowCount > 9, 4, 3)
+        End If
         Dim type = GetType(RemoteViewing.Vnc.VncClient)
         Debug.WriteLine("Members of " & type.FullName)
         For Each m In type.GetMembers(BindingFlags.[Public] Or BindingFlags.Instance Or BindingFlags.[Static])
@@ -138,7 +143,7 @@ Partial Public Class VncForm
         Catch ex As Exception
             ' rethrow to be handled by awaiting code
             MessageBox.Show(ex.Message)
-            Throw
+            Return
         End Try
     End Function
 #End Region
