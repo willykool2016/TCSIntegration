@@ -9,9 +9,11 @@ Public Class ManageDevice
     Dim WithEvents tkbTrack As New TrackBar
     Dim ToolStripProgressBar1 As New ToolStripProgressBar
     Dim frm1 = Application.OpenForms.OfType(Of VncForm).FirstOrDefault()
-    Dim intercomView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
+    Dim intercomView As CameraView = Application.OpenForms.OfType(Of CameraView).FirstOrDefault()
     Dim notification As New CallNotification()
     Dim sipService As New SIPService()
+    Dim clickRowIndex As Integer
+    Private openFeeds As New Dictionary(Of String, VideoFeed)
 
 #Region "Form Routines"
 
@@ -151,12 +153,18 @@ Public Class ManageDevice
                 End If
             ElseIf dgvDevice.Columns(e.ColumnIndex).Name = "VncViewer" Then
                 'MessageBox.Show("This will open a VNC Viewer Window.")
-                Await OpenVnc(e.RowIndex, False)
+                clickRowIndex = e.RowIndex
+                Await OpenVnc(False)
+
             ElseIf dgvDevice.Columns(e.ColumnIndex).Name = "VncBigscreen" Then
                 'MessageBox.Show("This will open a VNC Viewer Window.")
-                Await OpenVnc(e.RowIndex, True)
+                clickRowIndex = e.RowIndex
+                Await OpenVnc(True)
+
             ElseIf dgvDevice.Columns(e.ColumnIndex).Name = "IntercomView" Then
-                Await OpenIntercom(e.RowIndex)
+                clickRowIndex = e.RowIndex
+                Await OpenIntercom()
+
             End If
         Catch ex As Exception
             Call Universals.Error_Messager(Me.Name, System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error Zeroing the printer. " & ex.Message, MsgBoxStyle.Critical, Me.Text)
@@ -319,7 +327,8 @@ Public Class ManageDevice
         For i As Integer = 0 To dgvDevice.Rows.Count - 1
             SaveOrder()
             If dgvDevice.Rows(i).Cells("vnc_order").Value.Equals("") Then Return
-            Await OpenVnc(i, False)
+            clickRowIndex = i
+            Await OpenVnc(False)
         Next
     End Sub
 
@@ -330,16 +339,17 @@ Public Class ManageDevice
         For i As Integer = 0 To dgvDevice.Rows.Count - 1
             SaveOrder()
             If dgvDevice.Rows(i).Cells("vnc_order").Value.Equals("") Then Return
-            Await OpenIntercom(i)
+            clickRowIndex = i
+            Await OpenIntercom()
         Next
     End Sub
     'This below is part of the Add VNC function, and VNC view, and VNC All
-    Private Async Function OpenVnc(rowIndex As Integer, openOwn As Boolean) As Task
-        Dim curAddress = dgvDevice.Rows(rowIndex).Cells("address").Value.ToString()
+    Private Async Function OpenVnc(openOwn As Boolean) As Task
+        Dim curAddress = dgvDevice.Rows(clickRowIndex).Cells("address").Value.ToString()
         If openOwn Then
             Dim frm2 As New VncForm
             frm2.Show()
-            Await frm2.CreateConnection(dgvDevice.Rows(rowIndex).Cells("address").Value.ToString(), dgvDevice.Rows(rowIndex).Cells("vnc_password").Value.ToString())
+            Await frm2.CreateConnection(dgvDevice.Rows(clickRowIndex).Cells("address").Value.ToString(), dgvDevice.Rows(clickRowIndex).Cells("vnc_password").Value.ToString())
             frm2.BringToFront()
             frm2.Focus()
             Return
@@ -348,22 +358,31 @@ Public Class ManageDevice
             frm1 = New VncForm()
             frm1.Show()
         End If
-        Await frm1.CreateConnection(dgvDevice.Rows(rowIndex).Cells("address").Value.ToString(), dgvDevice.Rows(rowIndex).Cells("vnc_password").Value.ToString())
+        Await frm1.CreateConnection(dgvDevice.Rows(clickRowIndex).Cells("address").Value.ToString(), dgvDevice.Rows(clickRowIndex).Cells("vnc_password").Value.ToString())
         frm1.BringToFront()
         frm1.Focus()
     End Function
 
-    Private Async Function OpenIntercom(rowIndex As Integer) As Task
-        Dim camAddress = dgvDevice.Rows(rowIndex).Cells("intercom_address").Value.ToString()
+    Private Async Function OpenIntercom() As Task
+        Dim camAddress = dgvDevice.Rows(clickRowIndex).Cells("intercom_address").Value.ToString()
         Console.WriteLine($"Intercom Address: {camAddress}")
         If intercomView Is Nothing OrElse intercomView.IsDisposed Then
             intercomView = New CameraView
+            AddHandler intercomView.CameraViewClosed,
+                Sub()
+                    openFeeds.Clear()
+                End Sub
             intercomView.Show()
         End If
-        'intercomView.Axis_Init(camAddress)
-        intercomView.Video_Init(rowIndex, camAddress)
+        Dim feed = intercomView.Video_Init(clickRowIndex, camAddress)
+        openFeeds.Add(camAddress, feed)
         intercomView.BringToFront()
         intercomView.Focus()
+
+        AddHandler feed.FormClosed,
+            Sub()
+                openFeeds.Remove(camAddress)
+            End Sub
     End Function
 
     Private Sub ManageDevice_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
@@ -372,23 +391,30 @@ Public Class ManageDevice
 #End Region
 
 #Region "Pipeline Requests (Will & Glade)"
-    Private Sub ShowCallNotification()
+    Private Sub ShowCallNotification(callerIp As String)
 
         If InvokeRequired Then
-            Invoke(New Action(AddressOf ShowCallNotification))
+            Invoke(New Action(Of String)(AddressOf ShowCallNotification), callerIp)
             Return
         End If
 
         Dim notification As New CallNotification()
+        clickRowIndex = dgvDevice.Rows.Cast(Of DataGridViewRow)().ToList().FindIndex(Function(row) row.Cells("intercom_address").Value.ToString() = callerIp)
+        notification.CallerName = dgvDevice.Rows(clickRowIndex).Cells("name").Value.ToString()
 
         AddHandler notification.AnswerRequested,
         Sub()
+            If Not openFeeds.ContainsKey(callerIp) Then
+                OpenIntercom()
+            Else
+                ' Already open
+            End If
             sipService.AnswerCall()
         End Sub
 
         AddHandler notification.HangupRequested,
         Sub()
-            sipService.HangUp()
+            sipService.DeclineIncomingCall()
         End Sub
 
         notification.Show()

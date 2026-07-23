@@ -7,7 +7,7 @@ Imports MySql.Data.MySqlClient
 
 Public Class CameraView
     Private connectionString As String = "server=wills_vnc_connection;user=willsVncConnection;password=TMT$olutions;database=vnc_view_schema.list_device;"
-    'Private ReadOnly Cams As New List(Of AxAXISMEDIACONTROLLib.AxAxisMediaControl)
+    Public Event CameraViewClosed()
     Private CameraPanel As New TableLayoutPanel With {
     .ColumnCount = 1,
         .Dock = System.Windows.Forms.DockStyle.Fill,
@@ -19,7 +19,7 @@ Public Class CameraView
         .BackColor = SystemColors.ControlDarkDark
     }
     Private audioSwitch As Boolean = False
-
+    Dim lsIntercoms As New List(Of String)()
 
     Public Sub New()
         InitializeComponent()
@@ -34,6 +34,7 @@ Public Class CameraView
 
     Private Sub CameraView_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         'EndCall()
+        RaiseEvent CameraViewClosed()
     End Sub
 
     Private Sub CameraView_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -136,7 +137,7 @@ Public Class CameraView
     'End Sub
 
     Public rowNum As Integer
-    Public Sub Video_Init(rowIndex As Integer, ip As String)
+    Public Function Video_Init(rowIndex As Integer, ip As String) As VideoFeed
         'Core.Initialize()
         '_libVLC = New LibVLC()
         '_mediaPlayer = New MediaPlayer(_libVLC)
@@ -148,8 +149,12 @@ Public Class CameraView
         Dim subForm As VideoFeed = Globals.CreateCtrl(Of VideoFeed)(CameraPanel)
         subForm.TopLevel = False
         subForm.ipAddress = ip
-
         Dim subformName As String = ""
+
+        AddHandler subForm.FormClosed,
+            Sub(sender, e)
+                lsIntercoms.Remove(ip)
+            End Sub
 
         '------------------------------------------------------------------------------------
 
@@ -177,5 +182,6 @@ Public Class CameraView
         '-----------------------------------------------------------------------------------
         subForm.Text = subformName
         subForm.Show()
-    End Sub
+        Return subForm
+    End Function
 End Class

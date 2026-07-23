@@ -46,7 +46,6 @@ Public Class VideoFeed
         If _libVLC IsNot Nothing Then
             _libVLC.Dispose()
         End If
-
     End Sub
 
     Private Sub videoPlay()

@@ -11,7 +11,9 @@ Imports System.Security.Cryptography.X509Certificates
 Imports System.Text
 Imports System.Threading
 Imports System.Threading.Tasks
+Imports Org.BouncyCastle.Asn1
 Imports Org.BouncyCastle.Asn1.Cmp
+Imports Org.BouncyCastle.Ocsp
 Imports SIPSorcery.Media
 Imports SIPSorcery.SIP
 Imports SIPSorcery.SIP.App
@@ -28,7 +30,8 @@ Public Class SIPService
     Private isAppInitiatingCall As Boolean = False
 
     Public Event CallStatusChanged(status As String)
-    Public Event IncomingCallReceived()
+    Public Event IncomingCallReceived(callerIp As String)
+    Public Property SipIP As String
 
     'Automatically listens for incoming traffic
     Public Sub StartListening()
@@ -82,11 +85,11 @@ Public Class SIPService
                 Else
                     RaiseEvent CallStatusChanged("Status: Failed to auto-answer.")
                 End If
-
             Else
                 ' Normal incoming call (someone physically pushed the button outside)
                 RaiseEvent CallStatusChanged("Status: INCOMING CALL! (Ringing...)")
-                RaiseEvent IncomingCallReceived()
+                Dim callerIp As String = req.RemoteSIPEndPoint.Address.ToString()
+                RaiseEvent IncomingCallReceived(callerIp)
             End If
         Catch ex As Exception
             RaiseEvent CallStatusChanged($"Status: Ring Error - {ex.Message}")
@@ -133,8 +136,6 @@ Public Class SIPService
     Public Async Sub AnswerCall()
         If activeCallAgent Is Nothing OrElse activeServerAgent Is Nothing Then Return
         Try
-            ' Lock the button so it can't be double-clicked
-
             ' 1. Set up the Audio endpoints (Mic and Speakers)
             windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
             Dim voipMediaSession As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
@@ -158,7 +159,6 @@ Public Class SIPService
             If activeCallAgent IsNot Nothing Then
                 activeCallAgent.Hangup()
             End If
-
             ' 2. Clean up the audio devices
             If windowsAudio IsNot Nothing Then
                 windowsAudio.CloseAudio()
@@ -173,6 +173,23 @@ Public Class SIPService
 
         Catch ex As Exception
             MessageBox.Show($"Error hanging up: {ex.Message}")
+        End Try
+    End Sub
+
+    Public Sub DeclineIncomingCall()
+        Try
+            Debug.WriteLine($"activeServerAgent Is Nothing = {activeServerAgent Is Nothing}")
+
+            If activeServerAgent IsNot Nothing Then
+                Debug.WriteLine("Calling Reject()...")
+                activeServerAgent.Reject(SIPResponseStatusCodesEnum.Decline, "Declined by user")
+                Debug.WriteLine("Reject() returned.")
+            End If
+
+            RaiseEvent CallStatusChanged("Status: Connected & Listening")
+
+        Catch ex As Exception
+            Debug.WriteLine(ex.ToString())
         End Try
     End Sub
 End Class
