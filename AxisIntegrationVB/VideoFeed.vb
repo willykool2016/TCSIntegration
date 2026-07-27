@@ -1,6 +1,11 @@
 ﻿Imports LibVLCSharp.Shared
 Imports LibVLCSharp.WinForms
 Imports MySql.Data.MySqlClient
+Imports Mysqlx
+Imports NAudio.CoreAudioApi
+Imports Windows.ApplicationModel.Calls
+Imports Windows.Media.Capture
+Imports Windows.Security.Authentication.Identity.Core
 
 Public Class VideoFeed
 
@@ -71,25 +76,35 @@ Public Class VideoFeed
 
     Private Sub btnMute_Click(sender As Object, e As EventArgs) Handles btnMute.Click
 
-        MuteUnmuted()
+        'Dim muteObj As New SIPService()
+        'Dim result As New String(muteObj.ControlAudioSub())
+        'btnMute.Text = result
+
+        Try
+
+            Dim enumerator As New MMDeviceEnumerator()
+
+            Dim micDevice As MMDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia)
+
+            Dim currentMute As Boolean = micDevice.AudioEndpointVolume.Mute
+            micDevice.AudioEndpointVolume.Mute = Not currentMute
+
+            If micDevice.AudioEndpointVolume.Mute Then
+                btnMute.Text = "Unmute Mic"
+            Else
+                btnMute.Text = "Mute Mic"
+            End If
 
 
-
+        Catch ex As Exception
+            MessageBox.Show("Error toggling microphone: " & ex.Message)
+        End Try
 
 
     End Sub
 
     Dim supService As SIPService
 
-    Private Sub MuteUnmuted()
-
-
-        Dim muteObj As New SIPService()
-        Dim result = muteObj.ControlAudioSub()
-
-
-
-    End Sub
 
     Private Sub btnConnection_Click(sender As Object, e As EventArgs) Handles btnConnection.Click
         If btnConnection.Text = "Connect" Then

@@ -11,6 +11,7 @@ Imports System.Security.Cryptography.X509Certificates
 Imports System.Text
 Imports System.Threading
 Imports System.Threading.Tasks
+Imports NAudio.CoreAudioApi
 Imports Org.BouncyCastle.Asn1
 Imports Org.BouncyCastle.Asn1.Cmp
 Imports Org.BouncyCastle.Ocsp
@@ -23,6 +24,9 @@ Public Class SIPService
     Private sipTransport As SIPTransport
     Private userAgent As SIPUserAgent
     Private windowsAudio As WindowsAudioEndPoint
+
+
+    'Dim windowsAudio2 As WindowsAudioEndPoint
 
     Private activeCallAgent As SIPUserAgent
     Private activeServerAgent As SIPServerUserAgent
@@ -79,6 +83,7 @@ Public Class SIPService
                 RaiseEvent CallStatusChanged("Status: Connecting Audio...")
 
                 windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
+                'windowsAudio2 = windowsAudio
                 Dim voipMediaSession2 As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
                 voipMediaSession = voipMediaSession2
                 Dim answered = Await activeCallAgent.Answer(activeServerAgent, voipMediaSession)
@@ -141,6 +146,10 @@ Public Class SIPService
         Try
             ' 1. Set up the Audio endpoints (Mic and Speakers)
             windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
+
+
+
+
             Dim voipMediaSession As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
             ' 2. Formally Answer the call and open the 2-way audio!
             Dim answered = Await activeCallAgent.Answer(activeServerAgent, voipMediaSession)
@@ -196,16 +205,28 @@ Public Class SIPService
         End Try
     End Sub
 
-    Private muted As Boolean = False
+    Private muted As Boolean
 
     Public Function ControlAudioSub() As String
-        If muted = False Then
-            MuteMicrophone()
+
+        Dim enumerator As New MMDeviceEnumerator()
+        Dim device As MMDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console)
+
+
+        If muted = False Or muted = Nothing Then
+            '    MuteMicrophone()
+
+            device.AudioEndpointVolume.Mute = False
+            muted = True
             Return "MUTED"
         Else
-            UnmuteMicrophone()
+            '    UnmuteMicrophone()
+            device.AudioEndpointVolume.Mute = True
+            muted = False
             Return "UNMUTED"
         End If
+
+
     End Function
 
     'Private Sub AnswerButton_Click(sender As Object, e As EventArgs) Handles AnswerButton.Click
@@ -213,16 +234,16 @@ Public Class SIPService
     '    Me.Hide()
     'End Sub
 
-    Public Async Sub MuteMicrophone()
+    'Public Async Sub MuteMicrophone()
 
-        If voipMediaSession.AudioExtrasSource IsNot Nothing Then
-            Await voipMediaSession.AudioExtrasSource.PauseAudio()
-        End If
-    End Sub
+    '    If voipMediaSession.AudioExtrasSource IsNot Nothing Then
+    '        Await voipMediaSession.AudioExtrasSource.PauseAudio()
+    '    End If
+    'End Sub
 
-    Public Async Sub UnmuteMicrophone()
-        If voipMediaSession.AudioExtrasSource IsNot Nothing Then
-            Await voipMediaSession.AudioExtrasSource.StartAudio()
-        End If
-    End Sub
+    'Public Async Sub UnmuteMicrophone()
+    '    If voipMediaSession.AudioExtrasSource IsNot Nothing Then
+    '        Await voipMediaSession.AudioExtrasSource.StartAudio()
+    '    End If
+    'End Sub
 End Class
