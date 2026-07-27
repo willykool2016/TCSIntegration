@@ -84,8 +84,8 @@ Public Class SIPService
 
                 windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
                 'windowsAudio2 = windowsAudio
-                Dim voipMediaSession2 As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
-                voipMediaSession = voipMediaSession2
+                Dim voipMediaSession As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
+                'voipMediaSession = voipMediaSession2
                 Dim answered = Await activeCallAgent.Answer(activeServerAgent, voipMediaSession)
 
                 If answered Then
@@ -117,19 +117,25 @@ Public Class SIPService
             Try
                 ' 1. Force the switch OFF just in case it got stuck ON previously
                 Await client.GetAsync(deactivateUrl)
-
+                'client.GetAsync(deactivateUrl)
                 ' Slight delay to let the Axis state machine process the transition
                 Await Task.Delay(200)
-
+                'Task.Delay(200)
                 ' 2. Turn the switch ON (This triggers the Axis Action Rule to call us)
                 Dim response = Await client.GetAsync(activateUrl)
+
+                AnswerCall()
                 Dim body = Await response.Content.ReadAsStringAsync()
 
                 Debug.WriteLine("Virtual Input Activate Response:")
                 Debug.WriteLine(body)
 
+
+
+
                 If Not response.IsSuccessStatusCode Then
                     MessageBox.Show($"Failed to trigger intercom: {response.StatusCode} - {body}")
+                    AnswerCall()
                 End If
 
             Catch ex As Exception
@@ -137,7 +143,9 @@ Public Class SIPService
                 ' Reset flag if the HTTP request failed so we don't accidentally auto-answer a real visitor
                 isAppInitiatingCall = False
             End Try
+            AnswerCall()
         End Using
+        AnswerCall()
     End Function
 
     'Answer the incoming call
@@ -146,10 +154,6 @@ Public Class SIPService
         Try
             ' 1. Set up the Audio endpoints (Mic and Speakers)
             windowsAudio = New WindowsAudioEndPoint(New AudioEncoder)
-
-
-
-
             Dim voipMediaSession As New VoIPMediaSession(windowsAudio.ToMediaEndPoints)
             ' 2. Formally Answer the call and open the 2-way audio!
             Dim answered = Await activeCallAgent.Answer(activeServerAgent, voipMediaSession)
@@ -205,45 +209,20 @@ Public Class SIPService
         End Try
     End Sub
 
+    'The functionality for muting/unmuting the person's mic
     Private muted As Boolean
-
     Public Function ControlAudioSub() As String
-
         Dim enumerator As New MMDeviceEnumerator()
         Dim device As MMDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console)
-
-
         If muted = False Or muted = Nothing Then
-            '    MuteMicrophone()
-
             device.AudioEndpointVolume.Mute = False
             muted = True
             Return "MUTED"
         Else
-            '    UnmuteMicrophone()
             device.AudioEndpointVolume.Mute = True
             muted = False
             Return "UNMUTED"
         End If
-
-
     End Function
 
-    'Private Sub AnswerButton_Click(sender As Object, e As EventArgs) Handles AnswerButton.Click
-    '    RaiseEvent AnswerRequested()
-    '    Me.Hide()
-    'End Sub
-
-    'Public Async Sub MuteMicrophone()
-
-    '    If voipMediaSession.AudioExtrasSource IsNot Nothing Then
-    '        Await voipMediaSession.AudioExtrasSource.PauseAudio()
-    '    End If
-    'End Sub
-
-    'Public Async Sub UnmuteMicrophone()
-    '    If voipMediaSession.AudioExtrasSource IsNot Nothing Then
-    '        Await voipMediaSession.AudioExtrasSource.StartAudio()
-    '    End If
-    'End Sub
 End Class
