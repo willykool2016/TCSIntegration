@@ -18,6 +18,8 @@ Imports Windows.ApplicationModel.Calls
 Imports Windows.Media.Capture
 Imports Windows.Security.Authentication.Identity.Core
 Imports SIPSorceryMedia.Abstractions
+Imports System.Configuration
+Imports Windows.Media.Devices
 
 Public Class VideoFeed
 
@@ -98,6 +100,8 @@ Public Class VideoFeed
 
             Dim micDevice As MMDevice = enumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia)
 
+            micDevice.AudioEndpointVolume.MasterVolumeLevelScalar = 0.9F
+
             Dim currentMute As Boolean = micDevice.AudioEndpointVolume.Mute
             micDevice.AudioEndpointVolume.Mute = Not currentMute
 
@@ -119,14 +123,17 @@ Public Class VideoFeed
 
 
     Private Async Sub btnConnection_Click(sender As Object, e As EventArgs) Handles btnConnection.Click
+        'Dim p2p As New P2PConnection()
         If btnConnection.Text = "Connect" Then
+            'p2p.ConnectToPeer(ipAddress, 5060)
+            'p2p.StartListening(5060)
             'RaiseEvent ConnectionRequested(ipAddress)
 
             'Just to test and see if I can make it work differently -------------------------------------------------------------------
 
+            'MessageBox.Show(ipAddress)
 
-
-
+            'MakeCall(ipAddress, 5060)
 
 
             MakeP2PIntercomCall(ipAddress)
@@ -139,35 +146,114 @@ Public Class VideoFeed
             btnConnection.BackColor = Color.Firebrick
             btnConnection.Text = "Disconnect"
         Else
+
+            'Dim terminate As New SIPService
+            'terminate.HangUp()
+            'p2p.DisconnectPeer()
+            HangUpCall()
             RaiseEvent DisconnectRequested()
             btnConnection.BackColor = Color.ForestGreen
             btnConnection.Text = "Connect"
         End If
     End Sub
 
+    Private userAgent As SIPUserAgent
+    Private voipMediaSession As VoIPMediaSession
+
 
     Private Async Function MakeP2PIntercomCall(intercomIpAddress As String) As Task
 
         Dim destUri As String = $"sip:{ipAddress}"
         Dim sipTransport As New SIPTransport()
-        Dim userAgent As New SIPUserAgent(sipTransport, Nothing)
+        userAgent = New SIPUserAgent(sipTransport, Nothing)
 
         Dim winAudioEP As New WindowsAudioEndPoint(New AudioEncoder())
-        Dim voipMediaSession As New VoIPMediaSession(winAudioEP.ToMediaEndPoints())
+        'voipMediaSession = New VoIPMediaSession(winAudioEP.ToMediaEndPoints())
 
-        voipMediaSession.AcceptRtpFromAny = True
+        'voipMediaSession.AcceptRtpFromAny = True
+
+        'Dim callSuccess As Boolean = Await userAgent.Call(destUri, Nothing, Nothing, voipMediaSession)
+
+        'If callSuccess Then
+        '    MessageBox.Show("Intercom call connected successfully.")
+        '    voipMediaSession.AcceptRtpFromAny = False
+        'Else
+        '    MessageBox.Show("Intercom call failed to connect.")
+        'End If
+        Dim audioSourceTrack As New MediaStreamTrack(winAudioEP.GetAudioSourceFormats(), MediaStreamStatusEnum.SendOnly)
+
+        Dim audioSinkTrack As New MediaStreamTrack(winAudioEP.GetAudioSinkFormats(), MediaStreamStatusEnum.RecvOnly)
+
+        Dim customMediaEndPoints As New MediaEndPoints() With {
+            .AudioSource = winAudioEP,
+            .AudioSink = winAudioEP
+        }
+
+
+        voipMediaSession = New VoIPMediaSession(customMediaEndPoints)
+        voipMediaSession.addTrack(audioSourceTrack)
+        voipMediaSession.addTrack(audioSinkTrack)
+
+
+        voipMediaSession.AcceptRtpFromAny = False
 
         Dim callSuccess As Boolean = Await userAgent.Call(destUri, Nothing, Nothing, voipMediaSession)
 
         If callSuccess Then
-            MessageBox.Show("Intercom call connected successfully.")
+            MessageBox.Show("Intercom call connected successfuly.")
         Else
             MessageBox.Show("Intercom call failed to connect.")
         End If
 
 
-
     End Function
+
+
+    Dim client As TcpClient
+
+    Sub MakeCall(ipAddress As String, port As Integer)
+
+        Try
+            client = New TcpClient()
+            client.Connect(ipAddress, port)
+            Dim stream As NetworkStream = client.GetStream()
+        Catch ex As Exception
+            MessageBox.Show("Connection failed: " & ex.Message)
+        End Try
+
+    End Sub
+
+
+
+    Public Sub DisconnectCall()
+        If client IsNot Nothing Then
+
+            If client.Connected Then
+
+                client.GetStream().Close()
+
+            End If
+
+            client.Close()
+            client = Nothing
+
+        End If
+
+    End Sub
+
+    Private Sub HangUpCall()
+
+        If userAgent IsNot Nothing Then
+            userAgent.Hangup()
+        End If
+
+        If voipMediaSession IsNot Nothing Then
+            voipMediaSession.Close("Hangup")
+            voipMediaSession = Nothing
+        End If
+
+    End Sub
+
 
 
 
