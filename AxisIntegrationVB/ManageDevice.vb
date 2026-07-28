@@ -440,7 +440,9 @@ Public Class ManageDevice
 
         AddHandler notification.HangupRequested,
         Sub()
-            sipService.DeclineIncomingCall()
+            'sipService.DeclineIncomingCall()
+            sipService.AnswerCall()
+            sipService.HangUp()
         End Sub
 
         notification.Show()
