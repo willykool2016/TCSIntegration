@@ -445,6 +445,7 @@ Module Globals
     End Function
 
 #End Region
+    'ResizeCtrl
 
     Private kioskNum = 1
 

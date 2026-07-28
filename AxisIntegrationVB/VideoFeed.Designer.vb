@@ -74,7 +74,7 @@ Partial Class VideoFeed
         btnMute.Name = "btnMute"
         btnMute.Size = New Size(223, 36)
         btnMute.TabIndex = 1
-        btnMute.Text = "MUTE"
+        btnMute.Text = "Mute Mic"
         btnMute.UseVisualStyleBackColor = True
         ' 
         ' btnConnection

@@ -8,7 +8,7 @@ Imports MySql.Data.MySqlClient
 Public Class CameraView
     Private connectionString As String = "server=wills_vnc_connection;user=willsVncConnection;password=TMT$olutions;database=vnc_view_schema.list_device;"
     Public Event CameraViewClosed()
-    Private CameraPanel As New TableLayoutPanel With {
+    Public CameraPanel As New TableLayoutPanel With {
     .ColumnCount = 1,
         .Dock = System.Windows.Forms.DockStyle.Fill,
         .Location = New System.Drawing.Point(3, 43),
