@@ -22,6 +22,7 @@ Partial Class VideoFeed
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(VideoFeed))
         VideoView1 = New LibVLCSharp.WinForms.VideoView()
         TableLayoutPanel1 = New TableLayoutPanel()
@@ -30,6 +31,7 @@ Partial Class VideoFeed
         ToolStrip1 = New ToolStrip()
         ToolStripButton2 = New ToolStripButton()
         ToolStripButton3 = New ToolStripButton()
+        Timer1 = New Timer(components)
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
         TableLayoutPanel1.SuspendLayout()
         ToolStrip1.SuspendLayout()
@@ -50,8 +52,8 @@ Partial Class VideoFeed
         ' TableLayoutPanel1
         ' 
         TableLayoutPanel1.ColumnCount = 2
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
         TableLayoutPanel1.Controls.Add(VideoView1, 0, 0)
         TableLayoutPanel1.Controls.Add(btnMute, 0, 1)
         TableLayoutPanel1.Controls.Add(btnConnection, 1, 1)
@@ -80,7 +82,7 @@ Partial Class VideoFeed
         ' 
         btnConnection.BackColor = Color.ForestGreen
         btnConnection.Dock = DockStyle.Fill
-        btnConnection.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnConnection.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnConnection.ForeColor = SystemColors.Control
         btnConnection.Location = New Point(232, 236)
         btnConnection.Margin = New Padding(3, 4, 3, 4)
@@ -97,9 +99,9 @@ Partial Class VideoFeed
         ToolStrip1.ImageScalingSize = New Size(20, 20)
         ToolStrip1.Items.AddRange(New ToolStripItem() {ToolStripButton2, ToolStripButton3})
         ToolStrip1.LayoutStyle = ToolStripLayoutStyle.Flow
-        ToolStrip1.Location = New Point(17, 0)
+        ToolStrip1.Location = New Point(56, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(98, 27)
+        ToolStrip1.Size = New Size(59, 27)
         ToolStrip1.TabIndex = 2
         ToolStrip1.Text = "ToolStrip1"
         ' 
@@ -122,9 +124,13 @@ Partial Class VideoFeed
         ToolStripButton3.Size = New Size(29, 24)
         ToolStripButton3.Text = "ToolStripButton3"
         ' 
+        ' Timer1
+        ' 
+        Timer1.Enabled = True
+        ' 
         ' VideoFeed
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(459, 276)
         Controls.Add(ToolStrip1)
@@ -145,6 +151,7 @@ Partial Class VideoFeed
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents ToolStripButton2 As ToolStripButton
     Friend WithEvents ToolStripButton3 As ToolStripButton
+    Friend WithEvents Timer1 As Timer
 
 
 

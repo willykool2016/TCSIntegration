@@ -23,7 +23,7 @@ Public Class ManageDevice
     Dim notification As New CallNotification()
     Dim sipService As New SIPService()
     Dim clickRowIndex As Integer
-    Private openFeeds As New Dictionary(Of String, VideoFeed)
+    Public openFeeds As New Dictionary(Of String, VideoFeed)
 
 #Region "Form Routines"
 
@@ -177,7 +177,10 @@ Public Class ManageDevice
 
             End If
         Catch ex As Exception
+            'If dgvDevice.Columns(e.ColumnIndex).Name = "Zero" Then
             Call Universals.Error_Messager(Me.Name, System.Reflection.MethodInfo.GetCurrentMethod.Name, "Error Zeroing the printer. " & ex.Message, MsgBoxStyle.Critical, Me.Text)
+            'End If
+
         End Try
     End Sub
 
@@ -396,9 +399,13 @@ Public Class ManageDevice
             intercomView.Show()
         End If
         Dim feed = intercomView.Video_Init(clickRowIndex, camAddress)
-        openFeeds.Add(camAddress, feed)
-        intercomView.BringToFront()
-        intercomView.Focus()
+
+        If openFeeds.ContainsKey(camAddress.ToString) Then
+        Else
+            openFeeds.Add(camAddress, feed)
+            intercomView.BringToFront()
+            intercomView.Focus()
+        End If
 
         'Events when a video feed is closed, clears a single intercom from the dictionary
         AddHandler feed.FormClosed,
@@ -447,7 +454,6 @@ Public Class ManageDevice
 
         AddHandler notification.HangupRequested,
         Sub()
-            'sipService.DeclineIncomingCall()
             sipService.AnswerCall()
             sipService.HangUp()
         End Sub
@@ -456,35 +462,5 @@ Public Class ManageDevice
 
     End Sub
 #End Region
-
-    'Glade testing things ------------------------------------------------------------------------------
-
-
-    Private knownConnections As New HashSet(Of String)()
-    Private targetPort As Integer = 5060
-
-    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles Timer3.Tick
-
-        Dim properties As IPGlobalProperties = IPGlobalProperties.GetIPGlobalProperties()
-        Dim connections As TcpConnectionInformation() = properties.GetActiveTcpConnections()
-        Dim currentCycleConnections As New HashSet(Of String)()
-
-        For Each c As TcpConnectionInformation In connections
-
-            If c.LocalEndPoint.Port = targetPort Then
-
-                Dim connId As String = c.RemoteEndPoint.ToString()
-                currentCycleConnections.Add(connId)
-                If Not knownConnections.Contains(connId) Then
-                    MessageBox.Show($"New connection: {connId}", "Port Alert")
-                End If
-
-            End If
-
-
-        Next
-        knownConnections = currentCycleConnections
-    End Sub
-
 
 End Class
