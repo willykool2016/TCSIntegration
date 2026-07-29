@@ -172,30 +172,192 @@ Public Class VncViewerControl
 #End Region
 
 #Region "Keyboard Support"
+    'Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
+
+    '    MyBase.OnKeyDown(e)
+
+    '    If Client Is Nothing Then Return
+
+    '    Client.SendKeyEvent(True, CInt(e.KeyCode))
+
+    '    'Client.SendKeyEvent(
+    '    'True,
+    '    'e.KeyCode)
+    '    '    'changed from e.KeyValue to e.KeyCode for testing purposes
+    'End Sub
+
+
+    'Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
+
+    '    MyBase.OnKeyUp(e)
+
+    '    If Client Is Nothing Then Return
+
+    '    Client.SendKeyEvent(False, CInt(e.KeyCode))
+
+
+    '    'Client.SendKeyEvent(
+    '    'False,
+    '    'e.KeyCode)
+    '    'changed from e.KeyValue to e.KeyCode for testing purposes
+    'End Sub
+
+    'Glade test stuff---------------------------------------------------------
+
+    'Protected Overrides Function IsInputKey(keyData As Keys) As Boolean
+
+    '    Return True
+
+    'End Function
+
+
+    'Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+    '    If _client Is Nothing Then Return MyBase.ProcessCmdKey(msg, keyData)
+
+
+    '    Dim keyCode As Integer = CInt(keyData And Keys.KeyCode)
+
+    '    _client.SendKeyEvent(True, keyCode)
+
+    '    Return True
+    'End Function
+
+
+    'Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
+    '    MyBase.OnKeyUp(e)
+
+    '    If _client Is Nothing Then Return
+
+    '    Dim keyCode As Integer = CInt(e.KeyCode)
+    '    _client.SendKeyEvent(False, keyCode)
+
+    'End Sub
+
+
+    ' Safe Windows API imports to decode precise character layouts natively
+    <DllImport("user32.dll")>
+    Private Shared Function MapVirtualKey(uCode As UInteger, uMapType As UInteger) As UInteger
+    End Function
+
+    <DllImport("user32.dll")>
+    Private Shared Function ToUnicode(wVirtKey As UInteger, wScanCode As UInteger, lpKeyState As Byte(), <Out, MarshalAs(UnmanagedType.LPWStr)> pwszBuff As System.Text.StringBuilder, cchBuff As Integer, wFlags As UInteger) As Integer
+    End Function
+
+    <DllImport("user32.dll")>
+    Private Shared Function GetKeyboardState(lpKeyState As Byte()) As Boolean
+    End Function
+
+    Protected Overrides Function IsInputKey(keyData As Keys) As Boolean
+        ' Instructs Windows Forms to let navigation/control keys bypass standard selection
+        Return True
+    End Function
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        ' FIX 1: Change '_client' to the active 'Client' property
+        If Client Is Nothing Then Return MyBase.ProcessCmdKey(msg, keyData)
+
+        Dim key As Keys = keyData And Keys.KeyCode
+
+        ' Capture command, functional, and layout-altering structural keys immediately
+        If IsSpecialKey(key) Then
+            Dim keysym As Integer = GetSpecialKeySym(key)
+            If keysym <> 0 Then
+                ' FIX 2: Parameter order swapped to match RemoteViewing signature (KeySym, Pressed)
+                Client.SendKeyEvent(CType(keysym, KeySym), True)
+                Return True
+            End If
+        End If
+
+        ' Drop alphanumeric typing strings cleanly down into standard Windows layout chains
+        Return MyBase.ProcessCmdKey(msg, keyData)
+    End Function
+
     Protected Overrides Sub OnKeyDown(e As KeyEventArgs)
-
         MyBase.OnKeyDown(e)
-
+        ' FIX 1: Evaluation mapped to 'Client' property directly
         If Client Is Nothing Then Return
 
-        Client.SendKeyEvent(
-        True,
-        e.KeyCode)
-        'changed from e.KeyValue to e.KeyCode for testing purposes
+        Dim keysym As Integer = GetKeySymFromEventArgs(e)
+        If keysym <> 0 Then
+            ' FIX 2: Correct signature tracking applied
+            Client.SendKeyEvent(CType(keysym, KeySym), True)
+            e.Handled = True
+        End If
     End Sub
-
 
     Protected Overrides Sub OnKeyUp(e As KeyEventArgs)
-
         MyBase.OnKeyUp(e)
-
+        ' FIX 1: Evaluation mapped to 'Client' property directly
         If Client Is Nothing Then Return
 
-        Client.SendKeyEvent(
-        False,
-        e.KeyCode)
-        'changed from e.KeyValue to e.KeyCode for testing purposes
+        Dim keysym As Integer = If(IsSpecialKey(e.KeyCode), GetSpecialKeySym(e.KeyCode), GetKeySymFromEventArgs(e))
+        If keysym <> 0 Then
+            ' FIX 2: Correct signature tracking applied
+            Client.SendKeyEvent(CType(keysym, KeySym), False)
+            e.Handled = True
+        End If
     End Sub
+
+    ' Segregates structural layout behaviors from standard alphanumeric inputs
+    Private Function IsSpecialKey(key As Keys) As Boolean
+        Select Case key
+            Case Keys.Back, Keys.Tab, Keys.Enter, Keys.Escape, Keys.Delete, Keys.Insert,
+                 Keys.Home, Keys.End, Keys.PageUp, Keys.PageDown,
+                 Keys.Left, Keys.Up, Keys.Right, Keys.Down,
+                 Keys.F1 To Keys.F24, Keys.ShiftKey, Keys.ControlKey, Keys.Menu, Keys.Capital
+                Return True
+            Case Else
+                Return False
+        End Select
+    End Function
+
+    ' Translates system structural keys cleanly to standard X11 codes expected by VNC
+    Private Function GetSpecialKeySym(key As Keys) As Integer
+        Select Case key
+            Case Keys.Back : Return &HFF08
+            Case Keys.Tab : Return &HFF09
+            Case Keys.Enter : Return &HFF0D
+            Case Keys.Escape : Return &HFF1B
+            Case Keys.Delete : Return &HFFFF
+            Case Keys.Insert : Return &HFF63
+            Case Keys.Home : Return &HFF50
+            Case Keys.End : Return &HFF57
+            Case Keys.PageUp : Return &HFF55
+            Case Keys.PageDown : Return &HFF56
+            Case Keys.Left : Return &HFF51
+            Case Keys.Up : Return &HFF52
+            Case Keys.Right : Return &HFF53
+            Case Keys.Down : Return &HFF54
+            Case Keys.ShiftKey : Return &HFFE1
+            Case Keys.ControlKey : Return &HFFE3
+            Case Keys.Menu : Return &HFFE9
+            Case Keys.Capital : Return &HFFE5 ' Caps Lock
+            Case Keys.F1 To Keys.F12
+                Return &HFFBE + (key - Keys.F1)
+            Case Else
+                Return 0
+        End Select
+    End Function
+
+    ' Extracts proper shifted or raw Unicode structures out of standard typing keystrokes
+    Private Function GetKeySymFromEventArgs(e As KeyEventArgs) As Integer
+        Dim scanCode As UInteger = MapVirtualKey(CUInt(e.KeyCode), 0)
+        Dim keyState(255) As Byte
+        GetKeyboardState(keyState)
+
+        Dim sb As New System.Text.StringBuilder(2)
+        Dim result As Integer = ToUnicode(CUInt(e.KeyCode), scanCode, keyState, sb, sb.Capacity, 0)
+
+        If result > 0 Then
+            Return AscW(sb(0))
+        End If
+
+        Return CInt(e.KeyCode)
+    End Function
+
+
+
+
 #End Region
 
 #Region "Rendering"
