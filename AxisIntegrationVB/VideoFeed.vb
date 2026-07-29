@@ -256,22 +256,11 @@ Public Class VideoFeed
         ' Add any initialization after the InitializeComponent() call.
 
 
-        'MessageBox.Show(ipAddress.ToString)
 
-        'If _mainForm.openFeeds.ContainsKey(ipAddress.ToString) Then
-        'MessageBox.Show("Has yet to be removed.")
-        'Else
-        'MessageBox.Show("Can't find it :(")
-        'End If
 
 
         _mainForm.openFeeds.Remove(ipAddress)
 
-        If _mainForm.openFeeds.ContainsKey(ipAddress.ToString) Then
-            MessageBox.Show("It's still here!")
-        Else
-            MessageBox.Show("Probably successfully removed.")
-        End If
 
 
     End Sub
