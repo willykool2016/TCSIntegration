@@ -28,7 +28,6 @@ Partial Class VideoFeed
         btnMute = New Button()
         btnConnection = New Button()
         ToolStrip1 = New ToolStrip()
-        ToolStripButton1 = New ToolStripButton()
         ToolStripButton2 = New ToolStripButton()
         ToolStripButton3 = New ToolStripButton()
         CType(VideoView1, ComponentModel.ISupportInitialize).BeginInit()
@@ -51,8 +50,8 @@ Partial Class VideoFeed
         ' TableLayoutPanel1
         ' 
         TableLayoutPanel1.ColumnCount = 2
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
-        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50.0F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
+        TableLayoutPanel1.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 50F))
         TableLayoutPanel1.Controls.Add(VideoView1, 0, 0)
         TableLayoutPanel1.Controls.Add(btnMute, 0, 1)
         TableLayoutPanel1.Controls.Add(btnConnection, 1, 1)
@@ -81,7 +80,7 @@ Partial Class VideoFeed
         ' 
         btnConnection.BackColor = Color.ForestGreen
         btnConnection.Dock = DockStyle.Fill
-        btnConnection.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnConnection.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         btnConnection.ForeColor = SystemColors.Control
         btnConnection.Location = New Point(232, 236)
         btnConnection.Margin = New Padding(3, 4, 3, 4)
@@ -96,25 +95,17 @@ Partial Class VideoFeed
         ToolStrip1.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         ToolStrip1.Dock = DockStyle.None
         ToolStrip1.ImageScalingSize = New Size(20, 20)
-        ToolStrip1.Items.AddRange(New ToolStripItem() {ToolStripButton1, ToolStripButton2, ToolStripButton3})
+        ToolStrip1.Items.AddRange(New ToolStripItem() {ToolStripButton2, ToolStripButton3})
         ToolStrip1.LayoutStyle = ToolStripLayoutStyle.Flow
-        ToolStrip1.Location = New Point(27, 0)
+        ToolStrip1.Location = New Point(17, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(88, 27)
+        ToolStrip1.Size = New Size(98, 27)
         ToolStrip1.TabIndex = 2
         ToolStrip1.Text = "ToolStrip1"
         ' 
-        ' ToolStripButton1
-        ' 
-        ToolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image
-        ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), Image)
-        ToolStripButton1.ImageTransparentColor = Color.Magenta
-        ToolStripButton1.Name = "ToolStripButton1"
-        ToolStripButton1.Size = New Size(29, 24)
-        ToolStripButton1.Text = "ToolStripButton1"
-        ' 
         ' ToolStripButton2
         ' 
+        ToolStripButton2.BackgroundImageLayout = ImageLayout.Stretch
         ToolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Image
         ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), Image)
         ToolStripButton2.ImageTransparentColor = Color.Magenta
@@ -133,7 +124,7 @@ Partial Class VideoFeed
         ' 
         ' VideoFeed
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(459, 276)
         Controls.Add(ToolStrip1)
@@ -152,7 +143,6 @@ Partial Class VideoFeed
     Friend WithEvents btnMute As Button
     Friend WithEvents btnConnection As Button
     Friend WithEvents ToolStrip1 As ToolStrip
-    Friend WithEvents ToolStripButton1 As ToolStripButton
     Friend WithEvents ToolStripButton2 As ToolStripButton
     Friend WithEvents ToolStripButton3 As ToolStripButton
 

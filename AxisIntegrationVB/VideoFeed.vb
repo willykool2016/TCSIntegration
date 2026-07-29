@@ -37,6 +37,11 @@ Public Class VideoFeed
         Me.TopLevel = False
         Me.Dock = DockStyle.Fill
         videoPlay()
+
+        '-----------------------------------------------------------
+
+        '-----------------------------------------------------------
+
     End Sub
 
 
@@ -136,12 +141,16 @@ Public Class VideoFeed
     End Sub
 
 
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs)
     End Sub
 
     Dim docked = True
     Dim popUpForm As Form
     Dim cams As New CameraView()
+
+
+    Private isBackgroundVisible As Boolean = False
+
 
     Private Async Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
         If docked = True Then
@@ -153,6 +162,9 @@ Public Class VideoFeed
             popUpForm.Controls.Add(Me)
             popUpForm.Show()
             docked = False
+            Dim btnImage As Bitmap = CType(ToolStripButton2.Image.Clone(), Bitmap)
+            btnImage.RotateFlip(RotateFlipType.Rotate180FlipNone)
+            ToolStripButton2.Image = btnImage
         Else
             Dim targetForm As CameraView = CType(Application.OpenForms("CameraView"), CameraView)
             If targetForm IsNot Nothing Then
@@ -164,28 +176,19 @@ Public Class VideoFeed
                 popUpForm.Close()
             End If
             docked = True
+            Dim btnImage As Bitmap = CType(ToolStripButton2.Image.Clone(), Bitmap)
+            btnImage.RotateFlip(RotateFlipType.Rotate180FlipNone)
+            ToolStripButton2.Image = btnImage
         End If
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
         Dim targetForm As CameraView = CType(Application.OpenForms("CameraView"), CameraView)
         RemovePanelAndShiftUp(targetForm.CameraPanel, Me)
-        'MessageBox.Show("I have been clicked indeed.")
     End Sub
 
 
     Public Sub RemovePanelAndShiftUp(tlp As TableLayoutPanel, panelToRemove As Control)
-        '    Dim ctrlRow As Integer = tlp.GetRow(ctrl)
-        '    Dim ctrlCol As Integer = tlp.GetColumn(ctrl)
-        '    If ctrlRow > row Then
-        '        tlp.SetRow(ctrl, ctrlRow - 1)
-        '    End If
-        'Next
-        'If tlp.RowCount > 1 Then
-        '    tlp.RowCount -= 1
-        'End If
-        'tlp.ResumeLayout(True)
-
         popUpForm = New Form()
         CameraView.CameraPanel.Controls.Remove(Me)
         popUpForm.Text = "Detached Window"
@@ -194,10 +197,10 @@ Public Class VideoFeed
         Me.Location = New Drawing.Point(50, 50)
         popUpForm.Controls.Add(Me)
         popUpForm.Close()
-        'popUpForm.Show()
         docked = False
-
-
     End Sub
 
+    Private Sub ToolStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
+
+    End Sub
 End Class

@@ -4,6 +4,13 @@ Imports System.Text
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI
 
+'-----------------------------
+
+Imports System.Net.NetworkInformation
+Imports System.Collections.Generic
+
+'----------------------------
+
 Public Class ManageDevice
     'Public Property ParentFormRef As VncForm
     Dim blnDGVUpdate As Boolean
@@ -449,4 +456,35 @@ Public Class ManageDevice
 
     End Sub
 #End Region
+
+    'Glade testing things ------------------------------------------------------------------------------
+
+
+    Private knownConnections As New HashSet(Of String)()
+    Private targetPort As Integer = 5060
+
+    Private Sub Timer3_Tick(sender As Object, e As EventArgs) Handles Timer3.Tick
+
+        Dim properties As IPGlobalProperties = IPGlobalProperties.GetIPGlobalProperties()
+        Dim connections As TcpConnectionInformation() = properties.GetActiveTcpConnections()
+        Dim currentCycleConnections As New HashSet(Of String)()
+
+        For Each c As TcpConnectionInformation In connections
+
+            If c.LocalEndPoint.Port = targetPort Then
+
+                Dim connId As String = c.RemoteEndPoint.ToString()
+                currentCycleConnections.Add(connId)
+                If Not knownConnections.Contains(connId) Then
+                    MessageBox.Show($"New connection: {connId}", "Port Alert")
+                End If
+
+            End If
+
+
+        Next
+        knownConnections = currentCycleConnections
+    End Sub
+
+
 End Class

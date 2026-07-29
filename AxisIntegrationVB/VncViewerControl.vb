@@ -180,8 +180,8 @@ Public Class VncViewerControl
 
         Client.SendKeyEvent(
         True,
-        e.KeyValue)
-
+        e.KeyCode)
+        'changed from e.KeyValue to e.KeyCode for testing purposes
     End Sub
 
 
@@ -193,8 +193,8 @@ Public Class VncViewerControl
 
         Client.SendKeyEvent(
         False,
-        e.KeyValue)
-
+        e.KeyCode)
+        'changed from e.KeyValue to e.KeyCode for testing purposes
     End Sub
 #End Region
 
